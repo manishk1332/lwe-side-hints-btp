@@ -1,0 +1,65 @@
+# Prerequisites & Build Directories
+build/
+build-*/
+cmake-build-*/
+out/
+bin/
+lib/
+
+# CMake in-source build artifacts
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# Object and Library files
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+
+# Debugging and Profiling
+*.dSYM/
+*.su
+*.idb
+*.pdb
+*.gcov
+*.gcda
+*.gcno
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.bak
+.cache/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Logs and Scratch
+*.log
+scratch/
+tmp/
+
+# External references & local agent / planning documents
+leaky-LWE-Estimator/
+agents.md
+AGENTS.md
+main_plan.txt
+paper.pdf
+plans/
