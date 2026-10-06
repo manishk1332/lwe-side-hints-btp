@@ -41,6 +41,7 @@ _deps/
 # IDEs and Editors
 .vscode/
 .idea/
+.clangd/
 *.swp
 *.swo
 *~
