@@ -276,7 +276,7 @@ public:
             if constexpr (std::is_same_v<T, BigReal>) {
                 res[i] = BigReal(val);
             } else if constexpr (std::is_same_v<T, BigRational>) {
-                res[i] = BigRational(val);
+                res[i] = BigReal(val).to_bigrational();
             } else if constexpr (std::is_same_v<T, BigInt>) {
                 res[i] = BigInt(static_cast<long long>(std::round(val)));
             } else {

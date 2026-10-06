@@ -21,6 +21,21 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     )
 endif()
 
+# Compiler-specific enhancements
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_compile_options(-fcolor-diagnostics)
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        add_compile_options(-glldb)
+    endif()
+
+    option(USE_LLD "Use LLVM lld linker with Clang" ON)
+    if(USE_LLD)
+        add_link_options(-fuse-ld=lld)
+    endif()
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    add_compile_options(-fdiagnostics-color=always)
+endif()
+
 # Optional Sanitizers
 option(ENABLE_SANITIZERS "Enable Address and Undefined Behavior Sanitizers" OFF)
 if(ENABLE_SANITIZERS)
