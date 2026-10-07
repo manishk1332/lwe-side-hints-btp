@@ -33,3 +33,7 @@ add_dbdd_test(test_distribution lwe/test_distribution.cpp)
 add_dbdd_test(test_instance lwe/test_instance.cpp)
 add_dbdd_test(test_embedding lwe/test_embedding.cpp)
 
+# Phase 05: DBDD Core Tests
+add_dbdd_test(test_ellipsoid dbdd/test_ellipsoid.cpp)
+add_dbdd_test(test_dbdd_instance dbdd/test_dbdd_instance.cpp)
+

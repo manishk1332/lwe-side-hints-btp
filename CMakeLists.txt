@@ -67,6 +67,8 @@ add_library(dbdd STATIC
     src/lwe/distribution.cpp
     src/lwe/lwe_instance.cpp
     src/lwe/embedding.cpp
+    src/dbdd/ellipsoid.cpp
+    src/dbdd/dbdd_instance.cpp
 )
 
 add_library(dbdd::dbdd ALIAS dbdd)
