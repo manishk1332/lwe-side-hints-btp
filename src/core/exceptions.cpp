@@ -29,4 +29,7 @@ IndexOutOfBoundsException::IndexOutOfBoundsException(const std::string& message)
 EnumerationTimeoutException::EnumerationTimeoutException(const std::string& message)
     : DBDDException("Enumeration timeout: " + message) {}
 
+InvalidParameterException::InvalidParameterException(const std::string& message)
+    : DBDDException("Invalid parameter: " + message) {}
+
 } // namespace dbdd

@@ -23,3 +23,13 @@ add_dbdd_test(test_volume lattice/test_volume.cpp)
 add_dbdd_test(test_dual lattice/test_dual.cpp)
 add_dbdd_test(test_primitive lattice/test_primitive.cpp)
 add_dbdd_test(test_lattice lattice/test_lattice.cpp)
+
+# Phase 03: Lattice Reduction Tests
+add_dbdd_test(test_lll_exact reduction/test_lll_exact.cpp)
+add_dbdd_test(test_lll_float reduction/test_lll_float.cpp)
+
+# Phase 04: LWE Distributions & Kannan Embedding Tests
+add_dbdd_test(test_distribution lwe/test_distribution.cpp)
+add_dbdd_test(test_instance lwe/test_instance.cpp)
+add_dbdd_test(test_embedding lwe/test_embedding.cpp)
+
