@@ -50,4 +50,9 @@ public:
     explicit EnumerationTimeoutException(const std::string& message);
 };
 
+class InvalidParameterException : public DBDDException {
+public:
+    explicit InvalidParameterException(const std::string& message);
+};
+
 } // namespace dbdd

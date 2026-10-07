@@ -62,6 +62,8 @@ add_library(dbdd STATIC
     src/lattice/dual.cpp
     src/lattice/primitive.cpp
     src/lattice/lattice.cpp
+    src/reduction/lll_exact.cpp
+    src/reduction/lll_float.cpp
 )
 
 add_library(dbdd::dbdd ALIAS dbdd)
