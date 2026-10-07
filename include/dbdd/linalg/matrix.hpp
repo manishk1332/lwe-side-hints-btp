@@ -510,6 +510,8 @@ public:
                         res(r, c) = BigRational(val);
                     } else if constexpr (std::is_same_v<T, BigReal>) {
                         res(r, c) = val.to_bigrational();
+                    } else if constexpr (std::is_same_v<T, double>) {
+                        res(r, c) = BigReal(val).to_bigrational();
                     } else {
                         res(r, c) = BigRational(val);
                     }

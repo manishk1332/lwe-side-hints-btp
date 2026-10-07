@@ -14,3 +14,12 @@ add_dbdd_test(test_real arithmetic/test_real.cpp)
 # Phase 01: LinAlg Tests
 add_dbdd_test(test_vector linalg/test_vector.cpp)
 add_dbdd_test(test_matrix linalg/test_matrix.cpp)
+
+# Phase 02: Lattice Mathematics Tests
+add_dbdd_test(test_projection lattice/test_projection.cpp)
+add_dbdd_test(test_gram_schmidt lattice/test_gram_schmidt.cpp)
+add_dbdd_test(test_basis lattice/test_basis.cpp)
+add_dbdd_test(test_volume lattice/test_volume.cpp)
+add_dbdd_test(test_dual lattice/test_dual.cpp)
+add_dbdd_test(test_primitive lattice/test_primitive.cpp)
+add_dbdd_test(test_lattice lattice/test_lattice.cpp)

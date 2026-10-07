@@ -55,6 +55,13 @@ add_library(dbdd STATIC
     src/arithmetic/integer.cpp
     src/arithmetic/rational.cpp
     src/arithmetic/real.cpp
+    src/linalg/projection.cpp
+    src/linalg/gram_schmidt.cpp
+    src/lattice/basis.cpp
+    src/lattice/volume.cpp
+    src/lattice/dual.cpp
+    src/lattice/primitive.cpp
+    src/lattice/lattice.cpp
 )
 
 add_library(dbdd::dbdd ALIAS dbdd)

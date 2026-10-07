@@ -231,6 +231,8 @@ public:
                     res[i] = BigRational(data_[i]);
                 } else if constexpr (std::is_same_v<T, BigReal>) {
                     res[i] = data_[i].to_bigrational();
+                } else if constexpr (std::is_same_v<T, double>) {
+                    res[i] = BigReal(data_[i]).to_bigrational();
                 } else {
                     res[i] = BigRational(data_[i]);
                 }
