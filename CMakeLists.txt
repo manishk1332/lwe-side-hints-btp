@@ -73,6 +73,8 @@ add_library(dbdd STATIC
     src/hints/modular_hint.cpp
     src/hints/approximate_hint.cpp
     src/hints/aposteriori_hint.cpp
+    src/hints/short_vector_hint.cpp
+    src/lwe/secret_recovery.cpp
 )
 
 add_library(dbdd::dbdd ALIAS dbdd)

@@ -48,3 +48,6 @@ add_dbdd_test(test_approximate_hint hints/test_approximate_hint.cpp)
 
 # Phase 09: A-Posteriori Hints Tests
 add_dbdd_test(test_aposteriori_hint hints/test_aposteriori_hint.cpp)
+
+# Phase 10: Short-Vector Hints Tests
+add_dbdd_test(test_short_vector_hint hints/test_short_vector_hint.cpp)

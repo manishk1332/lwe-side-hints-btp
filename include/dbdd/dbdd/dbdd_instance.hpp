@@ -156,11 +156,20 @@ public:
     void integrate_aposteriori_hint(const VectorZZ& v, double mu_post, double var_post);
 
     /**
-     * @brief Integrates a short vector hint v in Lambda*.
-     * Paper Reference: Section 3.5
-     * Scheduled for implementation in Phase 10.
+     * @brief Integrates a short vector hint v in Lambda.
+     * Paper Reference: Albrecht et al. Section 3.5 / Equations (27)-(30)
+     * Projects the lattice Lambda' = Lambda * P_v^perp, drops dimension by 1,
+     * contracts volume by ||v||, and projects distribution (mu', Sigma').
+     * @param v Non-zero lattice vector in Lambda.
      */
     void integrate_short_vector_hint(const VectorZZ& v);
+
+    /**
+     * @brief Multi-vector overload for integrating short vector hints V in Lambda^{k x m}.
+     * Projects the lattice orthogonal to span(V), dropping dimension by k and volume by sqrt(det(V V^T)).
+     * @param V Matrix whose linearly independent rows belong to Lambda.
+     */
+    void integrate_short_vector_hint(const MatrixZZ& V);
 
     // =========================================================================
     // Extension points for Transformations (Phases 11-12)

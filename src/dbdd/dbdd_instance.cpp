@@ -7,6 +7,7 @@
 #include "dbdd/hints/modular_hint.hpp"
 #include "dbdd/hints/approximate_hint.hpp"
 #include "dbdd/hints/aposteriori_hint.hpp"
+#include "dbdd/hints/short_vector_hint.hpp"
 #include <cmath>
 #include <limits>
 #include <algorithm>
@@ -291,8 +292,14 @@ void DBDDInstance::integrate_aposteriori_hint(const VectorZZ& v, double mu_post,
     integrate_hint(hint);
 }
 
-void DBDDInstance::integrate_short_vector_hint(const VectorZZ& /*v*/) {
-    throw DBDDException("integrate_short_vector_hint is scheduled for implementation in Phase 10");
+void DBDDInstance::integrate_short_vector_hint(const VectorZZ& v) {
+    ShortVectorHint hint(v);
+    integrate_hint(hint);
+}
+
+void DBDDInstance::integrate_short_vector_hint(const MatrixZZ& V) {
+    ShortVectorHint hint(V);
+    integrate_hint(hint);
 }
 
 void DBDDInstance::homogenize() {
