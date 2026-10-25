@@ -46,5 +46,5 @@ add_dbdd_test(test_modular_hint hints/test_modular_hint.cpp)
 # Phase 08: Approximate Hints Tests
 add_dbdd_test(test_approximate_hint hints/test_approximate_hint.cpp)
 
-
-
+# Phase 09: A-Posteriori Hints Tests
+add_dbdd_test(test_aposteriori_hint hints/test_aposteriori_hint.cpp)

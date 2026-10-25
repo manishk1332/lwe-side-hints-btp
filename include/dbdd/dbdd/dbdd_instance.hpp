@@ -138,10 +138,22 @@ public:
 
     /**
      * @brief Integrates an a-posteriori approximate hint.
-     * Paper Reference: Section 3.3
-     * Scheduled for implementation in Phase 09.
+     * Paper Reference: Albrecht et al. Section 3.3 / Equations (24)-(26)
+     * Directly updates the 1D marginal along direction v to have mean mu_post and variance var_post.
+     * Guarantees zero mutations to the lattice basis, volume, dimension, or target vector.
+     * @param v Direction vector in R^n (or R^d).
+     * @param mu_post Target posterior mean of the projection along v.
+     * @param var_post Target posterior variance of the projection along v (>= 0).
      */
-    void integrate_aposteriori_hint(const VectorDouble& v, double l, double variance);
+    void integrate_aposteriori_hint(const VectorDouble& v, double mu_post, double var_post);
+
+    /**
+     * @brief Integer overload for integrating an a-posteriori approximate hint.
+     * @param v Direction vector in Z^n (or Z^d).
+     * @param mu_post Target posterior mean of the projection along v.
+     * @param var_post Target posterior variance of the projection along v (>= 0).
+     */
+    void integrate_aposteriori_hint(const VectorZZ& v, double mu_post, double var_post);
 
     /**
      * @brief Integrates a short vector hint v in Lambda*.
