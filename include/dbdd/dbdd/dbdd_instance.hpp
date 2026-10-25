@@ -134,6 +134,7 @@ public:
      * Scheduled for implementation in Phase 08.
      */
     void integrate_approximate_hint(const VectorDouble& v, double l, double variance);
+    void integrate_approximate_hint(const VectorZZ& v, const BigInt& l, double variance);
 
     /**
      * @brief Integrates an a-posteriori approximate hint.

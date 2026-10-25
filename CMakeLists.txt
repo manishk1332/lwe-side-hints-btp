@@ -71,6 +71,7 @@ add_library(dbdd STATIC
     src/dbdd/dbdd_instance.cpp
     src/hints/perfect_hint.cpp
     src/hints/modular_hint.cpp
+    src/hints/approximate_hint.cpp
 )
 
 add_library(dbdd::dbdd ALIAS dbdd)

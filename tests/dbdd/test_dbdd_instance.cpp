@@ -203,9 +203,9 @@ TEST_CASE("DBDDInstance: Extension Points for Future Phases", "[dbdd][instance]"
     REQUIRE(dbdd.dimension() == 2);
 
     // Phase 07: integrate_modular_hint is now implemented
-    dbdd.integrate_modular_hint(v_zz, l_zz, BigInt(2));
+    // Phase 08: integrate_approximate_hint is now implemented
+    dbdd.integrate_approximate_hint(v_d, 0.0, 1.0);
     REQUIRE(dbdd.dimension() == 2);
-    REQUIRE_THROWS_AS(dbdd.integrate_approximate_hint(v_d, 0.0, 1.0), DBDDException);
     REQUIRE_THROWS_AS(dbdd.integrate_aposteriori_hint(v_d, 0.0, 1.0), DBDDException);
     REQUIRE_THROWS_AS(dbdd.integrate_short_vector_hint(v_zz), DBDDException);
     REQUIRE_THROWS_AS(dbdd.homogenize(), DBDDException);

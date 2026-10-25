@@ -5,6 +5,7 @@
 #include "dbdd/dbdd/dbdd_instance.hpp"
 #include "dbdd/hints/perfect_hint.hpp"
 #include "dbdd/hints/modular_hint.hpp"
+#include "dbdd/hints/approximate_hint.hpp"
 #include <cmath>
 #include <limits>
 #include <algorithm>
@@ -269,8 +270,14 @@ void DBDDInstance::integrate_modular_hint(const VectorDouble& v, double l, doubl
     integrate_hint(hint);
 }
 
-void DBDDInstance::integrate_approximate_hint(const VectorDouble& /*v*/, double /*l*/, double /*variance*/) {
-    throw DBDDException("integrate_approximate_hint is scheduled for implementation in Phase 08");
+void DBDDInstance::integrate_approximate_hint(const VectorDouble& v, double l, double variance) {
+    ApproximateHint hint(v, l, variance);
+    integrate_hint(hint);
+}
+
+void DBDDInstance::integrate_approximate_hint(const VectorZZ& v, const BigInt& l, double variance) {
+    ApproximateHint hint(v, l, variance);
+    integrate_hint(hint);
 }
 
 void DBDDInstance::integrate_aposteriori_hint(const VectorDouble& /*v*/, double /*l*/, double /*variance*/) {
