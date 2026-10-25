@@ -126,6 +126,7 @@ public:
      * Scheduled for implementation in Phase 07.
      */
     void integrate_modular_hint(const VectorZZ& v, const BigInt& l, const BigInt& k);
+    void integrate_modular_hint(const VectorDouble& v, double l, double k);
 
     /**
      * @brief Integrates an approximate hint <s, v> = l + e, e ~ N(0, sigma^2).

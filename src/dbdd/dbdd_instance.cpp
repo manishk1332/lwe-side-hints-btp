@@ -4,6 +4,7 @@
 
 #include "dbdd/dbdd/dbdd_instance.hpp"
 #include "dbdd/hints/perfect_hint.hpp"
+#include "dbdd/hints/modular_hint.hpp"
 #include <cmath>
 #include <limits>
 #include <algorithm>
@@ -258,8 +259,14 @@ void DBDDInstance::integrate_perfect_hint(const VectorDouble& v, double l) {
     integrate_hint(hint);
 }
 
-void DBDDInstance::integrate_modular_hint(const VectorZZ& /*v*/, const BigInt& /*l*/, const BigInt& /*k*/) {
-    throw DBDDException("integrate_modular_hint is scheduled for implementation in Phase 07");
+void DBDDInstance::integrate_modular_hint(const VectorZZ& v, const BigInt& l, const BigInt& k) {
+    ModularHint hint(v, l, k);
+    integrate_hint(hint);
+}
+
+void DBDDInstance::integrate_modular_hint(const VectorDouble& v, double l, double k) {
+    ModularHint hint(v, l, k);
+    integrate_hint(hint);
 }
 
 void DBDDInstance::integrate_approximate_hint(const VectorDouble& /*v*/, double /*l*/, double /*variance*/) {

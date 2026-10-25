@@ -40,3 +40,7 @@ add_dbdd_test(test_dbdd_instance dbdd/test_dbdd_instance.cpp)
 # Phase 06: Perfect Hints Tests
 add_dbdd_test(test_perfect_hint hints/test_perfect_hint.cpp)
 
+# Phase 07: Modular Hints Tests
+add_dbdd_test(test_modular_hint hints/test_modular_hint.cpp)
+
+
