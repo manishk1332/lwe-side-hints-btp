@@ -217,7 +217,19 @@ TEST_CASE("DBDDInstance: Extension Points for Future Phases", "[dbdd][instance]"
     dbdd.integrate_short_vector_hint(v_sv);
     REQUIRE(dbdd.dimension() == 1);
 
-    REQUIRE_THROWS_AS(dbdd.homogenize(), DBDDException);
+    // Phase 11: homogenize is now implemented
+    dbdd.homogenize();
+    REQUIRE(dbdd.is_homogenized());
+    REQUIRE(dbdd.mean().squared_norm() == 0.0);
+
+    BasisZZ basis2(MatrixZZ::identity(2));
+    DBDDInstance dbdd2(basis2, VectorDouble({1.0, 2.0}), MatrixDouble::identity(2));
+    REQUIRE_FALSE(dbdd2.is_homogenized());
+    dbdd2.homogenize();
+    REQUIRE(dbdd2.is_homogenized());
+    REQUIRE(dbdd2.mean().squared_norm() == 0.0);
+
+    // Phase 12: isotropize and to_usvp are scheduled for Phase 12
     REQUIRE_THROWS_AS(dbdd.isotropize(), DBDDException);
     REQUIRE_THROWS_AS(dbdd.to_usvp(), DBDDException);
 }

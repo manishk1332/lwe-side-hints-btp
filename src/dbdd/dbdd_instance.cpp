@@ -8,6 +8,7 @@
 #include "dbdd/hints/approximate_hint.hpp"
 #include "dbdd/hints/aposteriori_hint.hpp"
 #include "dbdd/hints/short_vector_hint.hpp"
+#include "dbdd/dbdd/homogenization.hpp"
 #include <cmath>
 #include <limits>
 #include <algorithm>
@@ -303,7 +304,11 @@ void DBDDInstance::integrate_short_vector_hint(const MatrixZZ& V) {
 }
 
 void DBDDInstance::homogenize() {
-    throw DBDDException("homogenize is scheduled for implementation in Phase 11");
+    Homogenization::apply(*this);
+}
+
+bool DBDDInstance::is_homogenized(double tol) const {
+    return mean().squared_norm() <= tol * tol;
 }
 
 void DBDDInstance::isotropize() {

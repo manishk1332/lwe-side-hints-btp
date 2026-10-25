@@ -177,10 +177,17 @@ public:
 
     /**
      * @brief Homogenizes the instance: mu_h = 0, Sigma_h = Sigma + mu^T mu.
-     * Paper Reference: Section 2
-     * Scheduled for implementation in Phase 11.
+     * Paper Reference: Albrecht et al. Section 2 / Equation (8)
+     * Embeds the target distribution into an origin-centered ellipsoid envelope.
+     * Preserves lattice basis, volume, dimension, and target vector.
      */
     void homogenize();
+
+    /**
+     * @brief Checks whether the instance is origin-centered (homogenized).
+     * @param tol Euclidean norm tolerance for the mean vector (default: 1e-12).
+     */
+    [[nodiscard]] bool is_homogenized(double tol = 1e-12) const;
 
     /**
      * @brief Isotropizes the instance so that covariance becomes proportional to identity on span.

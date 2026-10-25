@@ -75,6 +75,7 @@ add_library(dbdd STATIC
     src/hints/aposteriori_hint.cpp
     src/hints/short_vector_hint.cpp
     src/lwe/secret_recovery.cpp
+    src/dbdd/homogenization.cpp
 )
 
 add_library(dbdd::dbdd ALIAS dbdd)
