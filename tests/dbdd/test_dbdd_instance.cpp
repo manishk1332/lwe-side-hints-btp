@@ -198,8 +198,9 @@ TEST_CASE("DBDDInstance: Extension Points for Future Phases", "[dbdd][instance]"
     VectorDouble v_d({1.0, 0.0, 0.0});
     BigInt l_zz(0);
 
-    REQUIRE_THROWS_AS(dbdd.integrate_perfect_hint(v_zz, l_zz), DBDDException);
-    REQUIRE_THROWS_AS(dbdd.integrate_perfect_hint(v_d, 0.0), DBDDException);
+    // Phase 06: integrate_perfect_hint is now implemented
+    dbdd.integrate_perfect_hint(v_zz, l_zz);
+    REQUIRE(dbdd.dimension() == 2);
     REQUIRE_THROWS_AS(dbdd.integrate_modular_hint(v_zz, l_zz, BigInt(2)), DBDDException);
     REQUIRE_THROWS_AS(dbdd.integrate_approximate_hint(v_d, 0.0, 1.0), DBDDException);
     REQUIRE_THROWS_AS(dbdd.integrate_aposteriori_hint(v_d, 0.0, 1.0), DBDDException);

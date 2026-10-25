@@ -3,6 +3,7 @@
 // target vector containment and chi-squared validation, and future hint/transformation stubs.
 
 #include "dbdd/dbdd/dbdd_instance.hpp"
+#include "dbdd/hints/perfect_hint.hpp"
 #include <cmath>
 #include <limits>
 #include <algorithm>
@@ -247,12 +248,14 @@ void DBDDInstance::integrate_hint(const Hint& hint) {
 // Structured Extension Points for Future Phases
 // =============================================================================
 
-void DBDDInstance::integrate_perfect_hint(const VectorZZ& /*v*/, const BigInt& /*l*/) {
-    throw DBDDException("integrate_perfect_hint is scheduled for implementation in Phase 06");
+void DBDDInstance::integrate_perfect_hint(const VectorZZ& v, const BigInt& l) {
+    PerfectHint hint(v, l);
+    integrate_hint(hint);
 }
 
-void DBDDInstance::integrate_perfect_hint(const VectorDouble& /*v*/, double /*l*/) {
-    throw DBDDException("integrate_perfect_hint is scheduled for implementation in Phase 06");
+void DBDDInstance::integrate_perfect_hint(const VectorDouble& v, double l) {
+    PerfectHint hint(v, l);
+    integrate_hint(hint);
 }
 
 void DBDDInstance::integrate_modular_hint(const VectorZZ& /*v*/, const BigInt& /*l*/, const BigInt& /*k*/) {

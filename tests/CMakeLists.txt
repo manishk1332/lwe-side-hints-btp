@@ -37,3 +37,6 @@ add_dbdd_test(test_embedding lwe/test_embedding.cpp)
 add_dbdd_test(test_ellipsoid dbdd/test_ellipsoid.cpp)
 add_dbdd_test(test_dbdd_instance dbdd/test_dbdd_instance.cpp)
 
+# Phase 06: Perfect Hints Tests
+add_dbdd_test(test_perfect_hint hints/test_perfect_hint.cpp)
+

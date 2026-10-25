@@ -69,6 +69,7 @@ add_library(dbdd STATIC
     src/lwe/embedding.cpp
     src/dbdd/ellipsoid.cpp
     src/dbdd/dbdd_instance.cpp
+    src/hints/perfect_hint.cpp
 )
 
 add_library(dbdd::dbdd ALIAS dbdd)
