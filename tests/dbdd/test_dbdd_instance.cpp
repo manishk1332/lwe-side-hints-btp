@@ -1,6 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include "dbdd/dbdd/dbdd_instance.hpp"
+#include "dbdd/dbdd/usvp_instance.hpp"
 #include "dbdd/lwe/embedding.hpp"
 #include "dbdd/lwe/distribution.hpp"
 #include "dbdd/lattice/volume.hpp"
@@ -229,7 +230,17 @@ TEST_CASE("DBDDInstance: Extension Points for Future Phases", "[dbdd][instance]"
     REQUIRE(dbdd2.is_homogenized());
     REQUIRE(dbdd2.mean().squared_norm() == 0.0);
 
-    // Phase 12: isotropize and to_usvp are scheduled for Phase 12
-    REQUIRE_THROWS_AS(dbdd.isotropize(), DBDDException);
-    REQUIRE_THROWS_AS(dbdd.to_usvp(), DBDDException);
+    // Phase 12: isotropize and to_usvp are now implemented
+    REQUIRE_FALSE(dbdd2.is_isotropized());
+    dbdd2.isotropize();
+    REQUIRE(dbdd2.is_isotropized());
+    REQUIRE(dbdd2.is_homogenized());
+
+    auto usvp_basis = dbdd2.to_usvp(1.0);
+    REQUIRE(usvp_basis.dimension() == dbdd2.dimension());
+    REQUIRE(usvp_basis.ambient_dimension() == dbdd2.ambient_dimension());
+
+    auto usvp_inst = dbdd2.to_usvp_instance();
+    REQUIRE(usvp_inst.dimension() == dbdd2.dimension());
+    REQUIRE(usvp_inst.ambient_dimension() == dbdd2.ambient_dimension());
 }

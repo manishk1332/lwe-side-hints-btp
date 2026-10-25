@@ -55,3 +55,7 @@ add_dbdd_test(test_short_vector_hint hints/test_short_vector_hint.cpp)
 # Phase 11: Homogenization Tests
 add_dbdd_test(test_homogenization dbdd/test_homogenization.cpp)
 
+# Phase 12: Isotropization Tests
+add_dbdd_test(test_isotropization dbdd/test_isotropization.cpp)
+
+

@@ -9,6 +9,8 @@
 #include "dbdd/hints/aposteriori_hint.hpp"
 #include "dbdd/hints/short_vector_hint.hpp"
 #include "dbdd/dbdd/homogenization.hpp"
+#include "dbdd/dbdd/isotropization.hpp"
+#include "dbdd/dbdd/usvp_instance.hpp"
 #include <cmath>
 #include <limits>
 #include <algorithm>
@@ -311,12 +313,36 @@ bool DBDDInstance::is_homogenized(double tol) const {
     return mean().squared_norm() <= tol * tol;
 }
 
-void DBDDInstance::isotropize() {
-    throw DBDDException("isotropize is scheduled for implementation in Phase 12");
+void DBDDInstance::isotropize(double rank_tol) {
+    Isotropization::apply(*this, rank_tol);
 }
 
-BasisZZ DBDDInstance::to_usvp() const {
-    throw DBDDException("to_usvp is scheduled for implementation in Phase 12");
+bool DBDDInstance::is_isotropized(double tol) const {
+    if (!is_homogenized(tol)) {
+        return false;
+    }
+    const auto& cov = covariance();
+    size_t d = cov.rows();
+    if (d == 0) return true;
+
+    // Check if cov * cov == cov (projector / identity) within tolerance
+    MatrixDouble cov2 = cov * cov;
+    for (size_t i = 0; i < d; ++i) {
+        for (size_t j = 0; j < d; ++j) {
+            if (std::abs(cov2(i, j) - cov(i, j)) > tol) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+BasisZZ DBDDInstance::to_usvp(double scale_factor) const {
+    return to_usvp_instance().to_integer_basis(scale_factor);
+}
+
+UsvpInstance DBDDInstance::to_usvp_instance(double rank_tol) const {
+    return Isotropization::isotropize(*this, rank_tol);
 }
 
 } // namespace dbdd

@@ -20,6 +20,8 @@
 
 namespace dbdd {
 
+class UsvpInstance;
+
 /**
  * @brief Full DBDD Instance representing the tuple (Lambda, mu, Sigma).
  * 
@@ -190,17 +192,27 @@ public:
     [[nodiscard]] bool is_homogenized(double tol = 1e-12) const;
 
     /**
-     * @brief Isotropizes the instance so that covariance becomes proportional to identity on span.
-     * Paper Reference: Section 2 / Section 4
-     * Scheduled for implementation in Phase 12.
+     * @brief Isotropizes the instance so that covariance becomes identity on active span.
+     * Paper Reference: Albrecht et al. Section 2, Section 3.3
      */
-    void isotropize();
+    void isotropize(double rank_tol = 1e-12);
 
     /**
-     * @brief Converts DBDD state to a uSVP lattice basis for reduction.
-     * Scheduled for implementation in Phase 12.
+     * @brief Checks whether the instance is isotropized (covariance is identity on active support).
      */
-    [[nodiscard]] BasisZZ to_usvp() const;
+    [[nodiscard]] bool is_isotropized(double tol = 1e-7) const;
+
+    /**
+     * @brief Converts DBDD state to a discrete uSVP lattice basis for lattice reduction.
+     * Discretizes B_iso = B * M by scaling and rounding.
+     * @param scale_factor Scaling factor applied before integer rounding (default: 1.0).
+     */
+    [[nodiscard]] BasisZZ to_usvp(double scale_factor = 1.0) const;
+
+    /**
+     * @brief Converts DBDD state to an isotropic UsvpInstance (continuous transformed lattice).
+     */
+    [[nodiscard]] UsvpInstance to_usvp_instance(double rank_tol = 1e-12) const;
 
 private:
     LatticeZZ lattice_;
