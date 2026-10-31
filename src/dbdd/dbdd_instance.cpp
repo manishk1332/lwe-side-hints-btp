@@ -12,6 +12,7 @@
 #include "dbdd/dbdd/isotropization.hpp"
 #include "dbdd/dbdd/usvp_instance.hpp"
 #include "dbdd/security/gsa_intersect.hpp"
+#include "dbdd/security/lightweight_predictor.hpp"
 #include <cmath>
 #include <limits>
 #include <algorithm>
@@ -355,6 +356,14 @@ SecurityEstimate DBDDInstance::estimate_attack_gsa(
 
 size_t DBDDInstance::estimate_beta_gsa(double rank_tol) const {
     return estimate_attack_gsa(2.0, 2000.0, rank_tol).beta;
+}
+
+DBDDStateStatistics DBDDInstance::to_state_statistics() const {
+    return DBDDStateStatistics::from_dbdd(*this);
+}
+
+DiagonalCovariance DBDDInstance::to_diagonal_covariance(double off_diag_tol) const {
+    return DiagonalCovariance::from_dbdd(*this, off_diag_tol);
 }
 
 } // namespace dbdd

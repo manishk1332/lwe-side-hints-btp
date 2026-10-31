@@ -82,6 +82,7 @@ add_library(dbdd STATIC
     src/security/root_hermite.cpp
     src/security/gsa.cpp
     src/security/gsa_intersect.cpp
+    src/security/lightweight_predictor.cpp
 )
 
 add_library(dbdd::dbdd ALIAS dbdd)

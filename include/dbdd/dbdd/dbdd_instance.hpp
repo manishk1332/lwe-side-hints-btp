@@ -22,6 +22,8 @@
 namespace dbdd {
 
 class UsvpInstance;
+class DBDDStateStatistics;
+class DiagonalCovariance;
 
 /**
  * @brief Full DBDD Instance representing the tuple (Lambda, mu, Sigma).
@@ -232,6 +234,21 @@ public:
      * @brief Estimates required integer BKZ block size beta ("bikz").
      */
     [[nodiscard]] size_t estimate_beta_gsa(double rank_tol = 1e-12) const;
+
+    // =========================================================================
+    // Lightweight Predictors (Phase 14)
+    // =========================================================================
+
+    /**
+     * @brief Converts instance to lightweight dense statistics predictor (Tier 2).
+     */
+    [[nodiscard]] DBDDStateStatistics to_state_statistics() const;
+
+    /**
+     * @brief Converts instance to super-lightweight diagonal predictor (Tier 3).
+     * @throws InvalidParameterException if covariance is not diagonal.
+     */
+    [[nodiscard]] DiagonalCovariance to_diagonal_covariance(double off_diag_tol = 1e-10) const;
 
 private:
     LatticeZZ lattice_;

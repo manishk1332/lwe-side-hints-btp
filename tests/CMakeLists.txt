@@ -62,5 +62,9 @@ add_dbdd_test(test_isotropization dbdd/test_isotropization.cpp)
 add_dbdd_test(test_root_hermite security/test_root_hermite.cpp)
 add_dbdd_test(test_gsa_intersect security/test_gsa_intersect.cpp)
 
+# Phase 14: Lightweight & Diagonal Predictors Tests
+add_dbdd_test(test_lightweight_predictor security/test_lightweight_predictor.cpp)
+
+
 
 
