@@ -11,6 +11,7 @@
 #include "dbdd/dbdd/homogenization.hpp"
 #include "dbdd/dbdd/isotropization.hpp"
 #include "dbdd/dbdd/usvp_instance.hpp"
+#include "dbdd/security/gsa_intersect.hpp"
 #include <cmath>
 #include <limits>
 #include <algorithm>
@@ -343,6 +344,17 @@ BasisZZ DBDDInstance::to_usvp(double scale_factor) const {
 
 UsvpInstance DBDDInstance::to_usvp_instance(double rank_tol) const {
     return Isotropization::isotropize(*this, rank_tol);
+}
+
+SecurityEstimate DBDDInstance::estimate_attack_gsa(
+    double beta_min,
+    double beta_max,
+    double rank_tol) const {
+    return GSAIntersect::estimate(*this, beta_min, beta_max, rank_tol);
+}
+
+size_t DBDDInstance::estimate_beta_gsa(double rank_tol) const {
+    return estimate_attack_gsa(2.0, 2000.0, rank_tol).beta;
 }
 
 } // namespace dbdd

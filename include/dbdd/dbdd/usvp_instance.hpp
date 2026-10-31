@@ -11,6 +11,7 @@
 #include "dbdd/linalg/matrix.hpp"
 #include "dbdd/lattice/basis.hpp"
 #include "dbdd/lattice/lattice.hpp"
+#include "dbdd/security/security_estimate.hpp"
 #include <optional>
 
 namespace dbdd {
@@ -53,6 +54,10 @@ public:
 
     // Mapping back reduced candidate vector w_iso -> w = w_iso * Sigma_h^{1/2}
     [[nodiscard]] VectorDouble reconstruct_vector(const VectorDouble& w_iso, const MatrixDouble& sqrt_cov) const;
+
+    // Security Estimation (Phase 13: GSA-Intersect)
+    [[nodiscard]] SecurityEstimate estimate_attack_gsa(double beta_min = 2.0, double beta_max = 2000.0) const;
+    [[nodiscard]] size_t estimate_beta_gsa() const;
 
 private:
     size_t dim_{0};

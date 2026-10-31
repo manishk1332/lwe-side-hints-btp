@@ -16,6 +16,7 @@
 #include "dbdd/lwe/embedding.hpp"
 #include "dbdd/dbdd/ellipsoid.hpp"
 #include "dbdd/hints/hint.hpp"
+#include "dbdd/security/security_estimate.hpp"
 #include <optional>
 
 namespace dbdd {
@@ -213,6 +214,24 @@ public:
      * @brief Converts DBDD state to an isotropic UsvpInstance (continuous transformed lattice).
      */
     [[nodiscard]] UsvpInstance to_usvp_instance(double rank_tol = 1e-12) const;
+
+    // =========================================================================
+    // Security Estimation (Phase 13: GSA-Intersect)
+    // =========================================================================
+
+    /**
+     * @brief Estimates attack complexity using GSA-Intersect security estimator.
+     * Uses restricted-determinant volume shortcut on homogenized covariance.
+     */
+    [[nodiscard]] SecurityEstimate estimate_attack_gsa(
+        double beta_min = 2.0,
+        double beta_max = 2000.0,
+        double rank_tol = 1e-12) const;
+
+    /**
+     * @brief Estimates required integer BKZ block size beta ("bikz").
+     */
+    [[nodiscard]] size_t estimate_beta_gsa(double rank_tol = 1e-12) const;
 
 private:
     LatticeZZ lattice_;

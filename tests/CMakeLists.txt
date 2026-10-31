@@ -58,4 +58,9 @@ add_dbdd_test(test_homogenization dbdd/test_homogenization.cpp)
 # Phase 12: Isotropization Tests
 add_dbdd_test(test_isotropization dbdd/test_isotropization.cpp)
 
+# Phase 13: GSA-Intersect Security Estimator Tests
+add_dbdd_test(test_root_hermite security/test_root_hermite.cpp)
+add_dbdd_test(test_gsa_intersect security/test_gsa_intersect.cpp)
+
+
 

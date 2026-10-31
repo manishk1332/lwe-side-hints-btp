@@ -79,6 +79,9 @@ add_library(dbdd STATIC
     src/dbdd/homogenization.cpp
     src/dbdd/usvp_instance.cpp
     src/dbdd/isotropization.cpp
+    src/security/root_hermite.cpp
+    src/security/gsa.cpp
+    src/security/gsa_intersect.cpp
 )
 
 add_library(dbdd::dbdd ALIAS dbdd)

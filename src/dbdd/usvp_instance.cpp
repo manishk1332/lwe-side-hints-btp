@@ -1,4 +1,5 @@
 #include "dbdd/dbdd/usvp_instance.hpp"
+#include "dbdd/security/gsa_intersect.hpp"
 #include "dbdd/core/exceptions.hpp"
 #include <cmath>
 
@@ -89,6 +90,14 @@ VectorDouble UsvpInstance::reconstruct_vector(
 
     // In row-vector convention: w = w_iso * sqrt_cov
     return w_iso * sqrt_cov;
+}
+
+SecurityEstimate UsvpInstance::estimate_attack_gsa(double beta_min, double beta_max) const {
+    return GSAIntersect::estimate(*this, beta_min, beta_max);
+}
+
+size_t UsvpInstance::estimate_beta_gsa() const {
+    return estimate_attack_gsa().beta;
 }
 
 } // namespace dbdd
