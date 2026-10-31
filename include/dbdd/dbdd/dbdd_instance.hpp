@@ -24,6 +24,7 @@ namespace dbdd {
 class UsvpInstance;
 class DBDDStateStatistics;
 class DiagonalCovariance;
+struct SelectionResult;
 
 /**
  * @brief Full DBDD Instance representing the tuple (Lambda, mu, Sigma).
@@ -175,6 +176,19 @@ public:
      * @param V Matrix whose linearly independent rows belong to Lambda.
      */
     void integrate_short_vector_hint(const MatrixZZ& V);
+
+    /**
+     * @brief Automatically finds and integrates worthy q-vectors using greedy optimization (Phase 19).
+     * @param q LWE modulus.
+     * @param max_k Maximum number of q-vectors to integrate (0 -> up to m).
+     * @param include_differences Whether to also consider differences q*(e_i - e_j).
+     * @param verify_beta Whether to reject vectors if beta does not decrease.
+     */
+    SelectionResult integrate_q_vectors(
+        const BigInt& q,
+        size_t max_k = 0,
+        bool include_differences = false,
+        bool verify_beta = true);
 
     // =========================================================================
     // Extension points for Transformations (Phases 11-12)

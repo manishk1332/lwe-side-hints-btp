@@ -8,6 +8,7 @@
 #include "dbdd/hints/approximate_hint.hpp"
 #include "dbdd/hints/aposteriori_hint.hpp"
 #include "dbdd/hints/short_vector_hint.hpp"
+#include "dbdd/hints/greedy_selection.hpp"
 #include "dbdd/dbdd/homogenization.hpp"
 #include "dbdd/dbdd/isotropization.hpp"
 #include "dbdd/dbdd/usvp_instance.hpp"
@@ -305,6 +306,14 @@ void DBDDInstance::integrate_short_vector_hint(const VectorZZ& v) {
 void DBDDInstance::integrate_short_vector_hint(const MatrixZZ& V) {
     ShortVectorHint hint(V);
     integrate_hint(hint);
+}
+
+SelectionResult DBDDInstance::integrate_q_vectors(
+    const BigInt& q,
+    size_t max_k,
+    bool include_differences,
+    bool verify_beta) {
+    return GreedyShortVectorSelector::integrate_q_vectors(*this, q, max_k, include_differences, verify_beta);
 }
 
 void DBDDInstance::homogenize() {

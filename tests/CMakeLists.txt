@@ -77,3 +77,7 @@ add_dbdd_test(test_bkz_simulator security/test_bkz_simulator.cpp)
 # Phase 18: Probabilistic Simulation Security Estimator Tests
 add_dbdd_test(test_probabilistic security/test_probabilistic.cpp)
 
+# Phase 19: Hint Worthiness & Optimization Tests
+add_dbdd_test(test_worthiness hints/test_worthiness.cpp)
+
+

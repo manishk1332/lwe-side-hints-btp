@@ -62,6 +62,7 @@ add_library(dbdd STATIC
     src/lattice/dual.cpp
     src/lattice/primitive.cpp
     src/lattice/lattice.cpp
+    src/lattice/q_vectors.cpp
     src/reduction/lll_exact.cpp
     src/reduction/lll_float.cpp
     src/reduction/svp.cpp
@@ -77,6 +78,8 @@ add_library(dbdd STATIC
     src/hints/approximate_hint.cpp
     src/hints/aposteriori_hint.cpp
     src/hints/short_vector_hint.cpp
+    src/hints/worthiness.cpp
+    src/hints/greedy_selection.cpp
     src/lwe/secret_recovery.cpp
     src/linalg/eigendecomposition.cpp
     src/dbdd/homogenization.cpp
