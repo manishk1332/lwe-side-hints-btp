@@ -108,6 +108,42 @@ target_link_libraries(dbdd PUBLIC
     Eigen3::Eigen
 )
 
+# Command-Line Interface (Phase 20)
+option(BUILD_CLI "Build DBDD command-line interface" ON)
+if(BUILD_CLI)
+    add_executable(dbdd_cli src/cli/main.cpp)
+    target_link_libraries(dbdd_cli PRIVATE dbdd)
+endif()
+
+# Examples (Phase 20)
+option(BUILD_EXAMPLES "Build example applications" ON)
+if(BUILD_EXAMPLES)
+    add_executable(example_01_toy_pipeline examples/01_toy_pipeline.cpp)
+    target_link_libraries(example_01_toy_pipeline PRIVATE dbdd)
+
+    add_executable(example_02_paper_benchmark examples/02_paper_benchmark.cpp)
+    target_link_libraries(example_02_paper_benchmark PRIVATE dbdd)
+
+    add_executable(example_03_structural_hints examples/03_structural_hints.cpp)
+    target_link_libraries(example_03_structural_hints PRIVATE dbdd)
+endif()
+
+# Benchmarks (Phase 20)
+option(BUILD_BENCHMARKS "Build benchmark executables" ON)
+if(BUILD_BENCHMARKS)
+    add_executable(bench_lll benchmarks/bench_lll.cpp)
+    target_link_libraries(bench_lll PRIVATE dbdd)
+
+    add_executable(bench_enumeration benchmarks/bench_enumeration.cpp)
+    target_link_libraries(bench_enumeration PRIVATE dbdd)
+
+    add_executable(bench_bkz benchmarks/bench_bkz.cpp)
+    target_link_libraries(bench_bkz PRIVATE dbdd)
+
+    add_executable(bench_security_estimator benchmarks/bench_security_estimator.cpp)
+    target_link_libraries(bench_security_estimator PRIVATE dbdd)
+endif()
+
 # Testing
 option(BUILD_TESTING "Build unit tests" ON)
 if(BUILD_TESTING)
