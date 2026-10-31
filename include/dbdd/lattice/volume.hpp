@@ -124,4 +124,36 @@ BigReal compute_volume(const Basis<T>& basis) {
     }
 }
 
+// =============================================================================
+// Volume Shortcut for Isotropization (Phase 12 / Albrecht et al. Section 3.3)
+// =============================================================================
+
+/**
+ * @brief Computes restricted determinant rdet(Sigma_h) = prod_{lambda_i > rank_tol} lambda_i.
+ */
+BigReal compute_restricted_determinant(const MatrixDouble& cov, double rank_tol = 1e-12);
+
+/**
+ * @brief Computes log restricted determinant ln rdet(Sigma_h) = sum_{lambda_i > rank_tol} ln(lambda_i).
+ */
+BigReal compute_log_restricted_determinant(const MatrixDouble& cov, double rank_tol = 1e-12);
+
+/**
+ * @brief Computes isotropized lattice volume via the shortcut formula:
+ * Vol(Lambda_iso) = Vol(Lambda) / sqrt(rdet(Sigma_h))
+ */
+BigReal compute_isotropized_volume(
+    const BigReal& original_volume,
+    const MatrixDouble& cov,
+    double rank_tol = 1e-12);
+
+/**
+ * @brief Computes isotropized lattice log-volume via the log-domain shortcut:
+ * ln Vol(Lambda_iso) = ln Vol(Lambda) - (1/2) * ln rdet(Sigma_h)
+ */
+BigReal compute_isotropized_log_volume(
+    const BigReal& original_log_volume,
+    const MatrixDouble& cov,
+    double rank_tol = 1e-12);
+
 } // namespace dbdd

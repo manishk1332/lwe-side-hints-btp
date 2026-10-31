@@ -62,11 +62,36 @@ add_library(dbdd STATIC
     src/lattice/dual.cpp
     src/lattice/primitive.cpp
     src/lattice/lattice.cpp
+    src/lattice/q_vectors.cpp
     src/reduction/lll_exact.cpp
     src/reduction/lll_float.cpp
+    src/reduction/svp.cpp
+    src/reduction/enumeration.cpp
+    src/reduction/bkz.cpp
     src/lwe/distribution.cpp
     src/lwe/lwe_instance.cpp
     src/lwe/embedding.cpp
+    src/dbdd/ellipsoid.cpp
+    src/dbdd/dbdd_instance.cpp
+    src/hints/perfect_hint.cpp
+    src/hints/modular_hint.cpp
+    src/hints/approximate_hint.cpp
+    src/hints/aposteriori_hint.cpp
+    src/hints/short_vector_hint.cpp
+    src/hints/worthiness.cpp
+    src/hints/greedy_selection.cpp
+    src/lwe/secret_recovery.cpp
+    src/linalg/eigendecomposition.cpp
+    src/dbdd/homogenization.cpp
+    src/dbdd/usvp_instance.cpp
+    src/dbdd/isotropization.cpp
+    src/security/root_hermite.cpp
+    src/security/gsa.cpp
+    src/security/gsa_intersect.cpp
+    src/security/lightweight_predictor.cpp
+    src/security/bkz_simulator.cpp
+    src/security/probabilistic_simulation.cpp
+    src/security/security_estimator.cpp
 )
 
 add_library(dbdd::dbdd ALIAS dbdd)
@@ -82,6 +107,42 @@ target_link_libraries(dbdd PUBLIC
     MPFR::MPFR
     Eigen3::Eigen
 )
+
+# Command-Line Interface (Phase 20)
+option(BUILD_CLI "Build DBDD command-line interface" ON)
+if(BUILD_CLI)
+    add_executable(dbdd_cli src/cli/main.cpp)
+    target_link_libraries(dbdd_cli PRIVATE dbdd)
+endif()
+
+# Examples (Phase 20)
+option(BUILD_EXAMPLES "Build example applications" ON)
+if(BUILD_EXAMPLES)
+    add_executable(example_01_toy_pipeline examples/01_toy_pipeline.cpp)
+    target_link_libraries(example_01_toy_pipeline PRIVATE dbdd)
+
+    add_executable(example_02_paper_benchmark examples/02_paper_benchmark.cpp)
+    target_link_libraries(example_02_paper_benchmark PRIVATE dbdd)
+
+    add_executable(example_03_structural_hints examples/03_structural_hints.cpp)
+    target_link_libraries(example_03_structural_hints PRIVATE dbdd)
+endif()
+
+# Benchmarks (Phase 20)
+option(BUILD_BENCHMARKS "Build benchmark executables" ON)
+if(BUILD_BENCHMARKS)
+    add_executable(bench_lll benchmarks/bench_lll.cpp)
+    target_link_libraries(bench_lll PRIVATE dbdd)
+
+    add_executable(bench_enumeration benchmarks/bench_enumeration.cpp)
+    target_link_libraries(bench_enumeration PRIVATE dbdd)
+
+    add_executable(bench_bkz benchmarks/bench_bkz.cpp)
+    target_link_libraries(bench_bkz PRIVATE dbdd)
+
+    add_executable(bench_security_estimator benchmarks/bench_security_estimator.cpp)
+    target_link_libraries(bench_security_estimator PRIVATE dbdd)
+endif()
 
 # Testing
 option(BUILD_TESTING "Build unit tests" ON)

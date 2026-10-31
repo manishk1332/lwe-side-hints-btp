@@ -33,3 +33,54 @@ add_dbdd_test(test_distribution lwe/test_distribution.cpp)
 add_dbdd_test(test_instance lwe/test_instance.cpp)
 add_dbdd_test(test_embedding lwe/test_embedding.cpp)
 
+# Phase 05: DBDD Core Tests
+add_dbdd_test(test_ellipsoid dbdd/test_ellipsoid.cpp)
+add_dbdd_test(test_dbdd_instance dbdd/test_dbdd_instance.cpp)
+
+# Phase 06: Perfect Hints Tests
+add_dbdd_test(test_perfect_hint hints/test_perfect_hint.cpp)
+
+# Phase 07: Modular Hints Tests
+add_dbdd_test(test_modular_hint hints/test_modular_hint.cpp)
+
+# Phase 08: Approximate Hints Tests
+add_dbdd_test(test_approximate_hint hints/test_approximate_hint.cpp)
+
+# Phase 09: A-Posteriori Hints Tests
+add_dbdd_test(test_aposteriori_hint hints/test_aposteriori_hint.cpp)
+
+# Phase 10: Short-Vector Hints Tests
+add_dbdd_test(test_short_vector_hint hints/test_short_vector_hint.cpp)
+
+# Phase 11: Homogenization Tests
+add_dbdd_test(test_homogenization dbdd/test_homogenization.cpp)
+
+# Phase 12: Isotropization Tests
+add_dbdd_test(test_isotropization dbdd/test_isotropization.cpp)
+
+# Phase 13: GSA-Intersect Security Estimator Tests
+add_dbdd_test(test_root_hermite security/test_root_hermite.cpp)
+add_dbdd_test(test_gsa_intersect security/test_gsa_intersect.cpp)
+
+# Phase 14: Lightweight & Diagonal Predictors Tests
+add_dbdd_test(test_lightweight_predictor security/test_lightweight_predictor.cpp)
+
+# Phase 15: Exact SVP Enumeration Tests
+add_dbdd_test(test_enumeration reduction/test_enumeration.cpp)
+
+# Phase 16: Block Korkine-Zolotarev (BKZ) Reduction Tests
+add_dbdd_test(test_bkz reduction/test_bkz.cpp)
+
+# Phase 17: BKZ Simulator Tests
+add_dbdd_test(test_bkz_simulator security/test_bkz_simulator.cpp)
+
+# Phase 18: Probabilistic Simulation Security Estimator Tests
+add_dbdd_test(test_probabilistic security/test_probabilistic.cpp)
+
+# Phase 19: Hint Worthiness & Optimization Tests
+add_dbdd_test(test_worthiness hints/test_worthiness.cpp)
+
+# Phase 20: Paper Reproduction Integration Tests
+add_dbdd_test(test_paper_reproduction integration/test_paper_reproduction.cpp)
+
+
