@@ -71,6 +71,10 @@ add_dbdd_test(test_enumeration reduction/test_enumeration.cpp)
 # Phase 16: Block Korkine-Zolotarev (BKZ) Reduction Tests
 add_dbdd_test(test_bkz reduction/test_bkz.cpp)
 
+# Phase 17: BKZ Simulator Tests
+add_dbdd_test(test_bkz_simulator security/test_bkz_simulator.cpp)
+
+
 
 
 
