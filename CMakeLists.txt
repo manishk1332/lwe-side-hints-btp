@@ -66,6 +66,7 @@ add_library(dbdd STATIC
     src/reduction/lll_float.cpp
     src/reduction/svp.cpp
     src/reduction/enumeration.cpp
+    src/reduction/bkz.cpp
     src/lwe/distribution.cpp
     src/lwe/lwe_instance.cpp
     src/lwe/embedding.cpp

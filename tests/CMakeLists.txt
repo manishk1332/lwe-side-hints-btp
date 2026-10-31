@@ -68,6 +68,10 @@ add_dbdd_test(test_lightweight_predictor security/test_lightweight_predictor.cpp
 # Phase 15: Exact SVP Enumeration Tests
 add_dbdd_test(test_enumeration reduction/test_enumeration.cpp)
 
+# Phase 16: Block Korkine-Zolotarev (BKZ) Reduction Tests
+add_dbdd_test(test_bkz reduction/test_bkz.cpp)
+
+
 
 
 
