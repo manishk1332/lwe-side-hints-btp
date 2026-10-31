@@ -233,6 +233,8 @@ SecurityEstimate GSAIntersect::estimate(
     est.beta = b_int;
     est.delta_beta = delta_val;
     est.solved = solved;
+    est.method = "GSA-Intersect";
+    est.success_probability = solved ? 1.0 : 0.0;
     return est;
 }
 

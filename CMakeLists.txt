@@ -87,6 +87,8 @@ add_library(dbdd STATIC
     src/security/gsa_intersect.cpp
     src/security/lightweight_predictor.cpp
     src/security/bkz_simulator.cpp
+    src/security/probabilistic_simulation.cpp
+    src/security/security_estimator.cpp
 )
 
 add_library(dbdd::dbdd ALIAS dbdd)

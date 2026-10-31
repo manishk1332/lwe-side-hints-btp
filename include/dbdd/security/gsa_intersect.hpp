@@ -112,5 +112,8 @@ public:
         double rank_tol = 1e-12);
 };
 
+/// Alias matching Section 41 naming requirement
+using GSAIntersectEstimator = GSAIntersect;
+
 } // namespace dbdd
 
