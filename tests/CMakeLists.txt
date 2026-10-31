@@ -65,6 +65,10 @@ add_dbdd_test(test_gsa_intersect security/test_gsa_intersect.cpp)
 # Phase 14: Lightweight & Diagonal Predictors Tests
 add_dbdd_test(test_lightweight_predictor security/test_lightweight_predictor.cpp)
 
+# Phase 15: Exact SVP Enumeration Tests
+add_dbdd_test(test_enumeration reduction/test_enumeration.cpp)
+
+
 
 
 
