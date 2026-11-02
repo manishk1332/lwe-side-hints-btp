@@ -56,7 +56,7 @@ These conventions prevent transpose, sign, and coordinate orientation bugs acros
   $$(k, -s, 1) B = (e, s, 1) = \bar{s}$$
   where $e = b - s A^T + k q$ for some $k \in \mathbb{Z}^m$.
 - **Volume**:
-  $$\operatorname{Vol}(\Lambda) = q^m$$
+  $$\mathrm{Vol}(\Lambda) = q^m$$
 
 ---
 
@@ -75,8 +75,8 @@ These conventions prevent transpose, sign, and coordinate orientation bugs acros
   with eigenvalue thresholding for numerical rank.
 - Transformed lattice: $\Lambda_{\text{iso}} = \Lambda M$.
 - Isotropized volume shortcut:
-  $$\operatorname{Vol}(\Lambda_{\text{iso}}) = \frac{\operatorname{Vol}(\Lambda)}{\sqrt{\operatorname{rdet}(\Sigma_h)}}$$
-  where $\operatorname{rdet}$ is the restricted determinant on the lattice span.
+  $$\mathrm{Vol}(\Lambda_{\text{iso}}) = \frac{\mathrm{Vol}(\Lambda)}{\sqrt{\mathrm{rdet}(\Sigma_h)}}$$
+  where $\mathrm{rdet}$ is the restricted determinant on the lattice span.
 
 ---
 

@@ -46,6 +46,6 @@ The project is structured into 5 strictly downward-dependent layers:
 1. **Full DBDD (`DBDDInstance`)**:
    Maintains actual lattice basis $(\Lambda)$, full mean vector $(\mu)$, and full dense covariance matrix $(\Sigma)$. Supports all hint integrations and actual reduction/attack execution.
 2. **Lightweight Predictor (`DBDDStateStatistics`)**:
-   Maintains only dimension $d$, volume $\operatorname{Vol}(\Lambda)$, mean $\mu$, and covariance $\Sigma$ (no lattice basis). Used for fast security sweeps and hint optimization.
+   Maintains only dimension $d$, volume $\mathrm{Vol}(\Lambda)$, mean $\mu$, and covariance $\Sigma$ (no lattice basis). Used for fast security sweeps and hint optimization.
 3. **Super-Lightweight Diagonal Predictor (`DiagonalCovariance`)**:
    Maintains diagonal entries of $\Sigma$, dimension, and volume for hint types that preserve diagonality.
