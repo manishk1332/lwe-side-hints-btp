@@ -65,7 +65,7 @@ Layer 1: Arithmetic & LinAlg   (include/dbdd/arithmetic/, linalg/) -> BigInt, Bi
 
 The framework maintains three architectural tiers:
 1. **Full DBDD (`DBDDInstance`)**: Concrete lattice basis $B \in \mathbb{Z}^{d \times m}$ and covariance $\Sigma$ for real lattice reduction attacks.
-2. **Lightweight Predictor (`DBDDStateStatistics`)**: Closed-form analytical updates of $(\operatorname{Vol}, d, \mu, \Sigma)$ in microseconds without basis manipulation.
+2. **Lightweight Predictor (`DBDDStateStatistics`)**: Closed-form analytical updates of $(\mathrm{Vol}, d, \mu, \Sigma)$ in microseconds without basis manipulation.
 3. **Diagonal Covariance (`DiagonalCovariance`)**: Fast 1D coordinate variance tracker.
 
 ---
@@ -114,12 +114,12 @@ lwe-side-hints-btp/
 - **C++ Compiler**: A C++20 compliant compiler:
   - Clang 18+ (recommended, supports `-fuse-ld=lld` and `-glldb`)
   - GCC 11+
-- **Build System**: CMake $\ge$ 3.20 and [Ninja](https://ninja-build.org/)
+- **Build System**: CMake ≥ 3.20 and [Ninja](https://ninja-build.org/)
 
 ### Required Libraries
 - **GMP** (`libgmp-dev`): Arbitrary-precision integer and rational arithmetic
 - **MPFR** (`libmpfr-dev`): Arbitrary-precision floating-point arithmetic
-- **Eigen 3** (`libeigen3-dev` $\ge$ 3.4): Dense matrix and vector operations
+- **Eigen 3** (`libeigen3-dev` ≥ 3.4): Dense matrix and vector operations
 - **Catch2 v3**: Unit testing framework (automatically fetched via CMake `FetchContent` if not installed)
 
 #### Installing Dependencies (Ubuntu / Debian)
@@ -175,7 +175,7 @@ After compiling, the built demonstration binaries can be executed directly from 
 
 ### Toy Pipeline (`example_01_toy_pipeline`)
 Executes an end-to-end secret recovery attack on an LWE instance ($n=3, m=3, q=11$) with uniform ternary secret:
-1. LWE instance generation & Kannan embedding ($d=7, \operatorname{Vol}=1331$).
+1. LWE instance generation & Kannan embedding ($d=7, \mathrm{Vol}=1331$).
 2. Short-vector projection & perfect hint integration (drops dimension to 5).
 3. Approximate hint integration (Kalman covariance shrinkage).
 4. Homogenization & Isotropization (whitening $\Sigma \to I$).

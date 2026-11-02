@@ -31,7 +31,7 @@ This document contains algorithmic implementation details, complexity bounds, an
 
 ## 5. Security Estimator & GSA
 - Condition for attack success:
-  $$\sqrt{\beta} \le \delta_\beta^{2\beta - d - 1} \operatorname{Vol}(\Lambda)^{1/d}$$
+  $$\sqrt{\beta} \le \delta_\beta^{2\beta - d - 1} \mathrm{Vol}(\Lambda)^{1/d}$$
 - Log-scale objective:
   $$F(\beta, d, V) = (2\beta - d - 1) \ln(\delta_\beta) + \frac{1}{d} \ln(V) - \frac{1}{2}\ln(\beta)$$
 - Attack predicted when $F(\beta, d, V) \ge 0$.
