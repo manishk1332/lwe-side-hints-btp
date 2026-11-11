@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2, Section 3.5 / docs/mathematical_conventions.md Section 7
+// Paper Reference: Dachman-Soled et al. Section 2, Section 3.5 / docs/mathematical_conventions.md Section 7
 // Mathematical Purpose: Orthogonal projection operators conforming to the row-vector convention.
 // For a non-zero row vector v:
 //     P_v^perp = I - v^T v / ||v||^2

@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3.3 / Equations (24)-(26) / docs/mathematical_conventions.md
+// Paper Reference: Dachman-Soled et al. Section 3.3 / Equations (24)-(26) / docs/mathematical_conventions.md
 // Mathematical Purpose: A-posteriori approximate hint conditioning on direct posterior
 // distribution <s, v> ~ N(mu_post, var_post).
 // Updates prior Gaussian distribution (mu, Sigma) along direction v_bar while strictly preserving
@@ -83,7 +83,7 @@ public:
     // =========================================================================
 
     /**
-     * @brief Paper Reference: Albrecht et al. Section 3.3 / Equations (24)-(26)
+     * @brief Paper Reference: Dachman-Soled et al. Section 3.3 / Equations (24)-(26)
      * Mathematical Purpose: Updates mean mu and covariance Sigma given a posterior
      * distribution along direction v_bar with mean mu_post and variance var_post.
      *

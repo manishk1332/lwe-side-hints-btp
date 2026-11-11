@@ -263,8 +263,8 @@ TEST_CASE("Probabilistic - Progressive Simulation & Paper Reproduction", "[secur
         }
     }
 
-    SECTION("Albrecht et al. Section 3.4 & Figure 4 Phenomenon") {
-        // In Section 3.4 & Figure 4, Albrecht et al. show that for small/intermediate block sizes,
+    SECTION("Dachman-Soled et al. Section 3.4 & Figure 4 Phenomenon") {
+        // In Section 3.4 & Figure 4, Dachman-Soled et al. show that for small/intermediate block sizes,
         // GSA-Intersect underestimates the required block size (beta_real > beta_gsa), because
         // GSA-Intersect only checks intersection at tail block and ignores pull-back lifting probability.
         // The probabilistic simulator with lifting correctly requires larger beta.

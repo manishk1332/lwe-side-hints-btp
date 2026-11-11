@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3.1 / Equations (12), (13) / docs/mathematical_conventions.md
+// Paper Reference: Dachman-Soled et al. Section 3.1 / Equations (12), (13) / docs/mathematical_conventions.md
 // Mathematical Purpose: Perfect linear hint <s, v> = l integration.
 // Homogenizes to <s_bar, v_bar> = 0, updates prior distribution (mu, Sigma) via
 // conditional Gaussian formulas, and restricts lattice Lambda -> Lambda \cap v_bar^\perp
@@ -80,7 +80,7 @@ public:
     // =========================================================================
 
     /**
-     * @brief Paper Reference: Albrecht et al. Equations (12) and (13)
+     * @brief Paper Reference: Dachman-Soled et al. Equations (12) and (13)
      * Mathematical Purpose: Updates mean mu and covariance Sigma conditioned on <x, v_bar> = 0.
      * 
      * Formulas:
@@ -107,7 +107,7 @@ public:
         const VectorDouble& v_bar);
 
     /**
-     * @brief Paper Reference: Albrecht et al. Section 3.1
+     * @brief Paper Reference: Dachman-Soled et al. Section 3.1
      * Mathematical Purpose: Restricts the lattice Lambda to the orthogonal hyperplane Lambda \cap v_bar^\perp.
      * 
      * Algorithm (Dual-lattice hyperplane intersection):

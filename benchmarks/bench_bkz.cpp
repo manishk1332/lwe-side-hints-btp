@@ -1,6 +1,6 @@
 // benchmarks/bench_bkz.cpp
 //
-// Paper Reference: Albrecht et al. Section 2, 3 / Schnorr (1987) / main_plan.txt Section 58
+// Paper Reference: Dachman-Soled et al. Section 2, 3 / Schnorr (1987) / main_plan.txt Section 58
 // Mathematical Purpose: BKZ lattice reduction tour performance and block size scaling benchmark.
 // Evaluates:
 //   - Wall-clock time per tour (ms)

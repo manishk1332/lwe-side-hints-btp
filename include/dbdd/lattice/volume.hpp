@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2 / docs/mathematical_conventions.md Section 1
+// Paper Reference: Dachman-Soled et al. Section 2 / docs/mathematical_conventions.md Section 1
 // Mathematical Purpose: Exact, intrinsic, and log-domain lattice volume computation.
 // For full-rank basis: Vol(Lambda) = |det(B)|
 // For lower-rank subspace lattice: Vol(Lambda) = sqrt(det(B * B^T))
@@ -125,7 +125,7 @@ BigReal compute_volume(const Basis<T>& basis) {
 }
 
 // =============================================================================
-// Volume Shortcut for Isotropization (Phase 12 / Albrecht et al. Section 3.3)
+// Volume Shortcut for Isotropization (Phase 12 / Dachman-Soled et al. Section 3.3)
 // =============================================================================
 
 /**

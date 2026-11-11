@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2 / Equation (8) / docs/mathematical_conventions.md Section 5
+// Paper Reference: Dachman-Soled et al. Section 2 / Equation (8) / docs/mathematical_conventions.md Section 5
 // Mathematical Purpose: Homogenization of the DBDD target distribution.
 // Embeds the affine target ellipsoid E(mu, Sigma) into an origin-centered ellipsoid envelope E(0, Sigma_h),
 // where Sigma_h = Sigma + mu^T * mu.

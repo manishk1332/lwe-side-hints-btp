@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2, Section 3.1, Section 3.2 / docs/mathematical_conventions.md Section 8
+// Paper Reference: Dachman-Soled et al. Section 2, Section 3.1, Section 3.2 / docs/mathematical_conventions.md Section 8
 // Mathematical Purpose: Explicit dual lattice basis construction and primal-dual involution.
 // For basis B in Q^{d x m}:
 //     Dual basis D in Q^{d x m} satisfies:

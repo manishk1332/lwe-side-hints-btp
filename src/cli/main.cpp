@@ -1,6 +1,6 @@
 // src/cli/main.cpp
 //
-// Paper Reference: Albrecht et al. (CRYPTO 2020) / main_plan.txt Section 53
+// Paper Reference: Dachman-Soled et al. (CRYPTO 2020) / main_plan.txt Section 53
 // Mathematical Purpose: Official Command-Line Interface (`dbdd_cli`) providing an end-to-end
 // workflow for LWE generation, Kannan embedding inspection, hardness estimation (GSA/Probabilistic),
 // BKZ lattice reduction attacks, and benchmark execution.
@@ -127,7 +127,7 @@ static CLIOptions parse_arguments(int argc, char* argv[]) {
 
 static std::unique_ptr<Distribution> make_distribution(const std::string& name, double sigma, uint64_t seed) {
     if (name == "ternary") {
-        return std::make_unique<UniformTernary>(seed);
+        return std::make_unique<UniformTernary>(2.0 / 3.0, seed);
     } else if (name == "binomial") {
         size_t k = static_cast<size_t>(std::max(1.0, std::round(2.0 * sigma * sigma)));
         return std::make_unique<CenteredBinomial>(k, seed);

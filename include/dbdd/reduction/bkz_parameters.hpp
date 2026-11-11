@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Schnorr (1987) / Schnorr-Euchner (1994) / Chen-Nguyen (2011) / Albrecht et al. Section 2
+// Paper Reference: Schnorr (1987) / Schnorr-Euchner (1994) / Chen-Nguyen (2011) / Dachman-Soled et al. Section 2
 // Mathematical Purpose: Configuration parameters for Block Korkine-Zolotarev (BKZ) lattice reduction.
 
 #include "dbdd/core/types.hpp"

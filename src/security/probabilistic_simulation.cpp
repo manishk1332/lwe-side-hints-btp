@@ -139,7 +139,7 @@ double ProbabilisticEstimator::conditional_chi_squared(
     const double pe2 = chi_squared_cdf(d2, l2);
     if (pe2 <= 1e-15) {
         // High dimension or small l2 leads to numerical underflow in CDF(l2).
-        // Following Albrecht et al. Section 3.4 and utils.sage, we assume lifting is successful.
+        // Following Dachman-Soled et al. Section 3.4 and utils.sage, we assume lifting is successful.
         return 1.0;
     }
 

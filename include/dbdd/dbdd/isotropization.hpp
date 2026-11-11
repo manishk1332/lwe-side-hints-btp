@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2, Section 3.3 / docs/mathematical_conventions.md Section 6
+// Paper Reference: Dachman-Soled et al. Section 2, Section 3.3 / docs/mathematical_conventions.md Section 6
 // Mathematical Purpose: Isotropization of homogenized DBDD instances.
 // Computes transformation matrix M = (Sigma_h^{1/2})^dagger and converts the instance into an
 // isotropic uSVP instance with normalized covariance M * Sigma_h * M = I (or projector).

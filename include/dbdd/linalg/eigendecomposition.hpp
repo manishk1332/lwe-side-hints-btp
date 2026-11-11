@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2, Section 3.3 / docs/mathematical_conventions.md Section 6
+// Paper Reference: Dachman-Soled et al. Section 2, Section 3.3 / docs/mathematical_conventions.md Section 6
 // Mathematical Purpose: Spectral decomposition of symmetric positive-semidefinite matrices Sigma_h,
 // matrix square root, pseudoinverse square root M = (Sigma_h^{1/2})^dagger, and multi-precision Jacobi solver.
 

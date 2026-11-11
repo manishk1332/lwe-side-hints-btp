@@ -57,6 +57,14 @@ Thumbs.db
 scratch/
 tmp/
 
+# LaTeX build artifacts
+*.aux
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
 # External references & local agent / planning documents
 leaky-LWE-Estimator/
 agents.md
@@ -64,3 +72,6 @@ AGENTS.md
 main_plan.txt
 paper.pdf
 plans/
+docs/
+innovation/
+report

@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3.3 / Equations (20)-(23) / docs/mathematical_conventions.md
+// Paper Reference: Dachman-Soled et al. Section 3.3 / Equations (20)-(23) / docs/mathematical_conventions.md
 // Mathematical Purpose: Approximate linear hint <s, v> + e = l integration where e ~ N(0, sigma_e^2).
 // Homogenizes to <s_bar, v_bar> + e = 0 against embedded target s_bar = (e_LWE, s, 1).
 // Updates target prior distribution (mu, Sigma) via Gaussian conditioning formulas (Eq. 20-23).
@@ -82,7 +82,7 @@ public:
     // =========================================================================
 
     /**
-     * @brief Paper Reference: Albrecht et al. Section 3.3 / Equations (20)-(23)
+     * @brief Paper Reference: Dachman-Soled et al. Section 3.3 / Equations (20)-(23)
      * Mathematical Purpose: Updates mean mu and covariance Sigma conditioned on
      * noisy observation <x, v_bar> + e = 0, where e ~ N(0, variance).
      * 

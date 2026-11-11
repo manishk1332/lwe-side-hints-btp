@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Schnorr (1987) / Schnorr-Euchner (1994) / Chen-Nguyen (2011) / Albrecht et al. Section 2 & 3
+// Paper Reference: Schnorr (1987) / Schnorr-Euchner (1994) / Chen-Nguyen (2011) / Dachman-Soled et al. Section 2 & 3
 // Mathematical Purpose: Block Korkine-Zolotarev (BKZ) reduction engine with decoupled SVP oracle,
 // exact unimodular completion insertion, tour profile tracking, and end-to-end secret recovery.
 

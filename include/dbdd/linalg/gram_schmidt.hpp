@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2 / docs/algorithm_notes.md Section 7
+// Paper Reference: Dachman-Soled et al. Section 2 / docs/algorithm_notes.md Section 7
 // Mathematical Purpose: Gram-Schmidt orthogonalization (classical, modified, and exact rational)
 // and state maintenance with O(m + d) local update on adjacent vector swaps.
 //

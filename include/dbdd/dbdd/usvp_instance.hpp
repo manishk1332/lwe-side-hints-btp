@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2, Section 3.3 / docs/mathematical_conventions.md Section 6
+// Paper Reference: Dachman-Soled et al. Section 2, Section 3.3 / docs/mathematical_conventions.md Section 6
 // Mathematical Purpose: Encapsulates an isotropized lattice instance Lambda_iso = Lambda * M,
 // where M = (Sigma_h^{1/2})^dagger. Represents the normalized uSVP instance for security estimation
 // and lattice reduction, with normalized target s_bar * M satisfying E[||s_bar * M||^2] = d.

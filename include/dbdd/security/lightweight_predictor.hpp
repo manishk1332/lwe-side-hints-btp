@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3 / main_plan.txt Sections 39-40
+// Paper Reference: Dachman-Soled et al. Section 3 / main_plan.txt Sections 39-40
 // Mathematical Purpose: Basis-free lightweight security predictors for fast parameter sweeps
 // and hint optimization without constructing or reducing lattice bases.
 // Implements Tier 2 (DBDDStateStatistics) and Tier 3 (DiagonalCovariance).

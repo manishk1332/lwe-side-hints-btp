@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3 / main_plan.txt Section 41 & 43
+// Paper Reference: Dachman-Soled et al. Section 3 / main_plan.txt Section 41 & 43
 // Mathematical Purpose: Unified security estimator facade providing side-by-side
 // evaluation of GSA-Intersect and Probabilistic Simulation estimators.
 

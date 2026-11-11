@@ -7,7 +7,7 @@
 
 namespace dbdd {
 
-// Paper Reference: Albrecht et al. Section 3.1 / Equations (12), (13)
+// Paper Reference: Dachman-Soled et al. Section 3.1 / Equations (12), (13)
 // Mathematical Purpose: Implementation of PerfectHint for DBDD.
 // Coordinates both exact lattice hyperplane restriction and conditional Gaussian distribution updates.
 

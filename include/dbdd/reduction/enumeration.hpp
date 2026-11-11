@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Fincke & Pohst (1985) / Schnorr & Euchner (1994) / Albrecht et al. Section 3
+// Paper Reference: Fincke & Pohst (1985) / Schnorr & Euchner (1994) / Dachman-Soled et al. Section 3
 // Mathematical Purpose: Exact SVP enumeration using Fincke-Pohst and Schnorr-Euchner
 // algorithms with dynamic branch-and-bound radius shrinking and projected block sublattice support.
 

@@ -1,6 +1,6 @@
 // tests/integration/test_paper_reproduction.cpp
 //
-// Paper Reference: Albrecht et al. (CRYPTO 2020) Section 5 & 6 / main_plan.txt Sections 61, 62, 63
+// Paper Reference: Dachman-Soled et al. (CRYPTO 2020) Section 5 & 6 / main_plan.txt Sections 61, 62, 63
 // Mathematical Purpose: Integration test suite reproducing paper experimental benchmarks,
 // verifying accuracy tolerances for security estimations under perfect, modular, and approximate hints,
 // and validating end-to-end exact secret recovery.
@@ -28,13 +28,13 @@
 using namespace dbdd;
 using Catch::Matchers::WithinAbs;
 
-TEST_CASE("Paper Reproduction - Albrecht et al. Section 5.2 Baseline (n=m=70, q=3301, sigma=20)", "[paper][baseline]") {
+TEST_CASE("Paper Reproduction - Dachman-Soled et al. Section 5.2 Baseline (n=m=70, q=3301, sigma=20)", "[paper][baseline]") {
     const size_t n = 70;
     const size_t m = 70;
     const BigInt q(3301);
     const uint64_t seed = 20200292;
 
-    // Albrecht et al. Section 5.2 / README.md: Centered binomial CBD(40) has variance k/2 = 20
+    // Dachman-Soled et al. Section 5.2 / README.md: Centered binomial CBD(40) has variance k/2 = 20
     CenteredBinomial s_dist(40, 101);
     CenteredBinomial e_dist(40, 102);
 

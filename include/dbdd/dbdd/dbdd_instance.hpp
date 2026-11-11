@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2, Section 3 / docs/mathematical_conventions.md
+// Paper Reference: Dachman-Soled et al. Section 2, Section 3 / docs/mathematical_conventions.md
 // Mathematical Purpose: Encapsulates the full DBDD instance (Lambda, mu, Sigma) with lattice basis,
 // target distributional priors, ground-truth verification, and structured extension points
 // for hint transformations (Phases 06-10) and basis transformations (Phases 11-12).
@@ -144,7 +144,7 @@ public:
 
     /**
      * @brief Integrates an a-posteriori approximate hint.
-     * Paper Reference: Albrecht et al. Section 3.3 / Equations (24)-(26)
+     * Paper Reference: Dachman-Soled et al. Section 3.3 / Equations (24)-(26)
      * Directly updates the 1D marginal along direction v to have mean mu_post and variance var_post.
      * Guarantees zero mutations to the lattice basis, volume, dimension, or target vector.
      * @param v Direction vector in R^n (or R^d).
@@ -163,7 +163,7 @@ public:
 
     /**
      * @brief Integrates a short vector hint v in Lambda.
-     * Paper Reference: Albrecht et al. Section 3.5 / Equations (27)-(30)
+     * Paper Reference: Dachman-Soled et al. Section 3.5 / Equations (27)-(30)
      * Projects the lattice Lambda' = Lambda * P_v^perp, drops dimension by 1,
      * contracts volume by ||v||, and projects distribution (mu', Sigma').
      * @param v Non-zero lattice vector in Lambda.
@@ -196,7 +196,7 @@ public:
 
     /**
      * @brief Homogenizes the instance: mu_h = 0, Sigma_h = Sigma + mu^T mu.
-     * Paper Reference: Albrecht et al. Section 2 / Equation (8)
+     * Paper Reference: Dachman-Soled et al. Section 2 / Equation (8)
      * Embeds the target distribution into an origin-centered ellipsoid envelope.
      * Preserves lattice basis, volume, dimension, and target vector.
      */
@@ -210,7 +210,7 @@ public:
 
     /**
      * @brief Isotropizes the instance so that covariance becomes identity on active span.
-     * Paper Reference: Albrecht et al. Section 2, Section 3.3
+     * Paper Reference: Dachman-Soled et al. Section 2, Section 3.3
      */
     void isotropize(double rank_tol = 1e-12);
 

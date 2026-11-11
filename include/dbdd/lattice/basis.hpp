@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2 / docs/mathematical_conventions.md Section 1
+// Paper Reference: Dachman-Soled et al. Section 2 / docs/mathematical_conventions.md Section 1
 // Mathematical Purpose: Lattice basis matrix conforming strictly to the row-basis convention:
 //     row i of matrix B is basis vector b_i.
 //     v = x * B represents integer linear combination of basis vectors.

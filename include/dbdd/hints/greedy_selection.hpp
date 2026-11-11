@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 4.5 / main_plan.txt Section 50
+// Paper Reference: Dachman-Soled et al. Section 4.5 / main_plan.txt Section 50
 // Mathematical Purpose: Optimal and greedy polynomial-time subset selection for short-vector hints
 // minimizing the attack hardness proxy (Eq. 31) and concrete BKZ block size beta.
 

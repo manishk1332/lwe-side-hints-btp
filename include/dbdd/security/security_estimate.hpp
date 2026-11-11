@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3 & 3.4 / main_plan.txt Section 30 & 43
+// Paper Reference: Dachman-Soled et al. Section 3 & 3.4 / main_plan.txt Section 30 & 43
 // Mathematical Purpose: Encapsulates the results of a security estimation run.
 // Exposes the required BKZ block size beta as the primary metric ("bikz").
 

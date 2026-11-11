@@ -1,6 +1,6 @@
 // benchmarks/bench_enumeration.cpp
 //
-// Paper Reference: Albrecht et al. Section 2 / Schnorr-Euchner (1994) / main_plan.txt Section 58
+// Paper Reference: Dachman-Soled et al. Section 2 / Schnorr-Euchner (1994) / main_plan.txt Section 58
 // Mathematical Purpose: SVP enumeration search tree complexity benchmark across dimensions d in [10, 30].
 // Evaluates:
 //   - Search tree nodes visited

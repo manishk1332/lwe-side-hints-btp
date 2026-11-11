@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Lenstra, Lenstra, Lovász (1982) / Albrecht et al. Section 2
+// Paper Reference: Lenstra, Lenstra, Lovász (1982) / Dachman-Soled et al. Section 2
 // Mathematical Purpose: High-precision floating-point LLL reduction using MPFR (BigReal)
 // and double precision. Maintains exact integer representations of the basis and unimodular
 // transformation matrix, with floating-point Gram-Schmidt orthogonalization guidance

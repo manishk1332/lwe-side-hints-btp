@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 4.5 / Equations (30)-(31)
+// Paper Reference: Dachman-Soled et al. Section 4.5 / Equations (30)-(31)
 // Mathematical Purpose: Analyzes the worthiness of candidate short vectors V in Lambda,
 // evaluating the variance ratio det(V Sigma V^T) / det(V V^T) and the hardness proxy
 // change rdet(Sigma') / Vol(Lambda')^2 = (rdet(Sigma) / Vol(Lambda)^2) * (det(V V^T)^2 / det(V Sigma V^T)).

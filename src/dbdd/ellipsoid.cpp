@@ -1,4 +1,4 @@
-// Paper Reference: Albrecht et al. Section 2, Section 3 / docs/mathematical_conventions.md Section 3
+// Paper Reference: Dachman-Soled et al. Section 2, Section 3 / docs/mathematical_conventions.md Section 3
 // Mathematical Purpose: Implementation of Ellipsoid E(mu, Sigma), PSD validation,
 // Moore-Penrose pseudoinverse, and Mahalanobis containment with degenerate subspace support.
 

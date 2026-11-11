@@ -1,6 +1,6 @@
 // examples/02_paper_benchmark.cpp
 //
-// Paper Reference: Albrecht et al. (CRYPTO 2020) Section 5.2 / Figure 5 & Table 1 / main_plan.txt Section 62
+// Paper Reference: Dachman-Soled et al. (CRYPTO 2020) Section 5.2 / Figure 5 & Table 1 / main_plan.txt Section 62
 // Mathematical Purpose: Concrete security estimation degradation under varying counts of
 // perfect hints, modular hints, and approximate hints on the paper benchmark configuration:
 //   n = m = 70, q = 3301, sigma = 20.
@@ -63,7 +63,7 @@ static void print_table_row(const BenchmarkResult& r) {
 
 int main() {
     std::cout << "==================================================================================\n";
-    std::cout << "          DBDD Framework: 02_paper_benchmark (Albrecht et al. Section 5.2)        \n";
+    std::cout << "          DBDD Framework: 02_paper_benchmark (Dachman-Soled et al. Section 5.2)        \n";
     std::cout << "==================================================================================\n";
 
     const size_t n = 70;
@@ -71,7 +71,7 @@ int main() {
     const BigInt q(3301);
     const uint64_t base_seed = 20200292;
 
-    // Centered binomial CBD(40) has variance k/2 = 20 (Albrecht et al. Section 5.2 / README.md)
+    // Centered binomial CBD(40) has variance k/2 = 20 (Dachman-Soled et al. Section 5.2 / README.md)
     CenteredBinomial secret_dist(40, 101);
     CenteredBinomial noise_dist(40, 102);
 

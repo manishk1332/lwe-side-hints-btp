@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Lenstra, Lenstra, Lovász (1982) / Cohen Alg. 2.6.3 / Albrecht et al. Section 2
+// Paper Reference: Lenstra, Lenstra, Lovász (1982) / Cohen Alg. 2.6.3 / Dachman-Soled et al. Section 2
 // Mathematical Purpose: Exact rational LLL reduction over BigInt and BigRational bases.
 // Guarantees exact size-reduction, strict Lovász condition adherence,
 // volume preservation, and unimodular transformation tracking U in GL_d(Z).

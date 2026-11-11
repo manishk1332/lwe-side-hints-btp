@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2, Eq. (7) / docs/paper_mapping.md / docs/mathematical_conventions.md Section 4
+// Paper Reference: Dachman-Soled et al. Section 2, Eq. (7) / docs/paper_mapping.md / docs/mathematical_conventions.md Section 4
 // Mathematical Purpose: Exact Kannan embedding transforming an LWE instance (A, b) into an initial DBDD lattice basis:
 //     B = [ q I_m   0     0 ]
 //         [  A^T   -I_n   0 ]

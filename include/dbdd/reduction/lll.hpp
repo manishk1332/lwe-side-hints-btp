@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Lenstra, Lenstra, Lovász (1982) / Albrecht et al. Section 2
+// Paper Reference: Lenstra, Lenstra, Lovász (1982) / Dachman-Soled et al. Section 2
 // Mathematical Purpose: Generic LLL parameters, reduction result container,
 // and rigorous invariant verification functions (unimodularity, volume, size-reduction,
 // Lovász condition, Hermite bound).
