@@ -19,6 +19,7 @@
 #include "dbdd/hints/budgeted_selection.hpp"
 #include "dbdd/hints/candidate_pools.hpp"
 #include "dbdd/security/lightweight_predictor.hpp"
+#include "dbdd/security/security_estimator.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -27,6 +28,7 @@
 #include <iomanip>
 #include <iostream>
 #include <map>
+#include <numeric>
 #include <string>
 #include <vector>
 
@@ -36,6 +38,7 @@ namespace {
 
 struct Config {
     bool quick = false;
+    bool prob_only = false;  // E5 only: probabilistic predictor for the greedy and static selections
     std::string out = "data/budgeted_selection_results.csv";
 };
 
@@ -84,10 +87,12 @@ Config parse_args(int argc, char** argv) {
         const std::string arg = argv[i];
         if (arg == "--quick") {
             cfg.quick = true;
+        } else if (arg == "--prob-only") {
+            cfg.prob_only = true;
         } else if (arg == "--out" && i + 1 < argc) {
             cfg.out = argv[++i];
         } else {
-            std::cerr << "Usage: " << argv[0] << " [--quick] [--out <csv path>]\n";
+            std::cerr << "Usage: " << argv[0] << " [--quick] [--prob-only] [--out <csv path>]\n";
             std::exit(arg == "--help" ? 0 : 2);
         }
     }
@@ -118,6 +123,58 @@ int main(int argc, char** argv) {
     const size_t beta0 = prior.estimate_attack_gsa().beta;
     std::cout << "Instance: n=" << n << ", m=" << m << ", q=3301, variance=20, d=" << prior.dimension()
               << ", baseline beta=" << beta0 << "\n";
+    if (cfg.prob_only) {
+        // -----------------------------------------------------------------------------------------------------
+        // E5: the greedy and static selections of E1 (same pools and seeds) evaluated with the probabilistic
+        // BKZ simulation of Dachman-Soled et al. (Section 3.4) as well as with GSA-Intersect.
+        // -----------------------------------------------------------------------------------------------------
+        const std::string out = "data/budgeted_selection_prob.csv";
+        std::ofstream prob_csv(out);
+        prob_csv << "pool,k,trial,strategy,beta_gsa_cont,beta_prob_avg\n" << std::setprecision(10);
+        const size_t trials = cfg.quick ? 3 : 30;
+        std::map<std::string, std::vector<double>> acc;
+        for (CandidatePoolKind kind : {CandidatePoolKind::B, CandidatePoolKind::C}) {
+            const std::string pool_name = CandidatePools::name(kind);
+            for (size_t trial = 0; trial < trials; ++trial) {
+                CandidatePoolOptions options;
+                options.n = n;
+                options.m = m;
+                options.seed = 1000 * (static_cast<uint64_t>(kind) + 1) + trial;
+                const std::vector<HintCandidate> pool = CandidatePools::make(kind, options);
+                for (size_t k : {10, 20, 30, 40, 60}) {
+                    for (const std::string strategy : {"greedy", "static"}) {
+                        const BudgetedSelectionResult r = strategy == "greedy" ? selector.select_greedy(pool, k)
+                                                                              : selector.select_static_top_k(pool, k);
+                        DBDDStateStatistics post = prior;
+                        for (size_t i : r.selected_indices) {
+                            post.integrate_approximate_hint(pool[i].v_bar, 0.0, std::sqrt(pool[i].variance));
+                        }
+                        const double prob = SecurityEstimator::probabilistic(post).beta_continuous;
+                        prob_csv << pool_name << "," << k << "," << trial << "," << strategy << ","
+                                 << r.beta_after << "," << prob << "\n";
+                        acc[pool_name + "/" + std::to_string(k) + "/" + strategy + "/gsa"].push_back(r.beta_after);
+                        acc[pool_name + "/" + std::to_string(k) + "/" + strategy + "/prob"].push_back(prob);
+                    }
+                }
+            }
+        }
+        const auto mean = [](const std::vector<double>& v) {
+            return std::accumulate(v.begin(), v.end(), 0.0) / static_cast<double>(v.size());
+        };
+        std::cout << "E5: mean block size (GSA | probabilistic), greedy vs static\n";
+        for (const std::string pool_name : {"B", "C"}) {
+            for (size_t k : {10, 20, 30, 40, 60}) {
+                const std::string p = pool_name + "/" + std::to_string(k) + "/";
+                std::cout << pool_name << " k=" << std::setw(3) << k << std::fixed << std::setprecision(2)
+                          << "  GSA " << mean(acc[p + "greedy/gsa"]) << " vs " << mean(acc[p + "static/gsa"])
+                          << "   prob " << mean(acc[p + "greedy/prob"]) << " vs " << mean(acc[p + "static/prob"])
+                          << "\n";
+            }
+        }
+        std::cout << "Wrote " << out << "\n";
+        return 0;
+    }
+
     std::cout << "Mode: " << (cfg.quick ? "quick" : "full") << ", output: " << cfg.out << "\n\n";
 
     CsvWriter csv(cfg.out);

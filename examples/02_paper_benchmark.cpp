@@ -27,6 +27,7 @@
 #include <random>
 #include <chrono>
 #include <cmath>
+#include <string>
 
 using namespace dbdd;
 
@@ -51,6 +52,40 @@ static VectorDouble sample_weight5_ternary(size_t dim, std::mt19937_64& rng) {
         v[indices[i]] = (rng() % 2 == 0) ? 1.0 : -1.0;
     }
     return v;
+}
+
+// Norm of the component of v orthogonal to the span of the hints already integrated, i.e. the norm of the
+// projection v * Pi_Lambda of v onto the span of the current (full-rank Kannan) lattice. For a primitive dual
+// vector this is the factor by which a perfect hint multiplies the lattice volume (Dachman-Soled et al.,
+// Lemma 12 and Remark 25). `basis` holds an orthonormal basis of the previous hint vectors and is extended in place.
+// Returns 0 when v is (numerically) dependent on the previous hints.
+static double projected_dual_norm(const VectorDouble& v, std::vector<std::vector<double>>& basis) {
+    std::vector<double> r(v.size());
+    for (size_t i = 0; i < v.size(); ++i) {
+        r[i] = v[i];
+    }
+    for (const auto& u : basis) {
+        double c = 0.0;
+        for (size_t i = 0; i < r.size(); ++i) {
+            c += r[i] * u[i];
+        }
+        for (size_t i = 0; i < r.size(); ++i) {
+            r[i] -= c * u[i];
+        }
+    }
+    double norm_sq = 0.0;
+    for (double x : r) {
+        norm_sq += x * x;
+    }
+    const double norm = std::sqrt(norm_sq);
+    if (norm < 1e-9) {
+        return 0.0;
+    }
+    for (double& x : r) {
+        x /= norm;
+    }
+    basis.push_back(std::move(r));
+    return norm;
 }
 
 static void print_table_header() {
@@ -80,7 +115,136 @@ static void print_table_row(const BenchmarkResult& r) {
               << "\n";
 }
 
-int main() {
+// Concrete end-to-end secret recovery under BKZ-4 (n = m = 12, q = 257, CBD(3)), 15 trials per hint count.
+static void run_e2e_benchmark() {
+    // -------------------------------------------------------------------------
+    // 5. Concrete End-to-End Secret Recovery under BKZ Reduction
+    // -------------------------------------------------------------------------
+    std::cout << "\n==================================================================================\n";
+    std::cout << "     Tractable End-to-End BKZ Secret Recovery Benchmark (n=m=12, q=257, CBD(3))   \n";
+    std::cout << "==================================================================================\n";
+
+    const size_t e2e_n = 12;
+    const size_t e2e_m = 12;
+    const BigInt e2e_q(257);
+    CenteredBinomial e2e_s_dist(3, 101);
+    CenteredBinomial e2e_e_dist(3, 102);
+
+    std::ofstream e2e_csv("data/e2e_bkz_recovery.csv");
+    e2e_csv << "k,dimension,mean_time_ms,std_time_ms,mean_tours,success_rate,predicted_beta\n";
+
+    std::cout << std::left << std::setw(8) << "Hints"
+              << std::setw(8) << "Dim"
+              << std::setw(16) << "Mean Time (ms)"
+              << std::setw(14) << "Mean Tours"
+              << std::setw(16) << "Success Rate"
+              << std::setw(16) << "Predicted Beta"
+              << "\n"
+              << std::string(78, '-') << "\n";
+
+    std::vector<size_t> e2e_hints = {0, 2, 4, 6, 8, 10, 12};
+    const size_t trials = 15;
+
+    for (size_t num_h : e2e_hints) {
+        double total_ms = 0.0;
+        std::vector<double> times_ms;
+        double total_tours = 0.0;
+        size_t success_count = 0;
+        size_t final_dim = 0;
+        size_t pred_beta = 0;
+
+        for (size_t t = 0; t < trials; ++t) {
+            uint64_t seed = 2026 + t * 47;
+            auto lwe = LWEInstance::generate_random(e2e_n, e2e_m, e2e_q, e2e_s_dist, e2e_e_dist, seed);
+            SecretReconstructor reconstructor(lwe);
+
+            auto kannan = KannanEmbedding::from_lwe(lwe, e2e_e_dist, e2e_s_dist);
+            DBDDInstance dbdd = DBDDInstance::from_kannan(kannan);
+
+            for (size_t h = 0; h < num_h && h < e2e_n; ++h) {
+                VectorZZ v(e2e_n, BigInt(0));
+                v[h] = BigInt(1);
+                dbdd.integrate_perfect_hint(v, lwe.test_only_secret()[h]);
+            }
+
+            dbdd.homogenize();
+            dbdd.isotropize();
+
+            final_dim = dbdd.dimension();
+            auto gsa = SecurityEstimator::gsa_intersect(dbdd);
+            pred_beta = gsa.beta;
+
+            auto t0 = std::chrono::high_resolution_clock::now();
+            BKZParameters params(4, 15, 0.99);
+            auto bkz_res = bkz_reduce(dbdd.basis(), params);
+            auto t1 = std::chrono::high_resolution_clock::now();
+
+            const double trial_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
+            total_ms += trial_ms;
+            times_ms.push_back(trial_ms);
+            total_tours += bkz_res.tours_completed;
+
+            bool rec = false;
+            for (size_t r = 0; r < bkz_res.basis.dimension(); ++r) {
+                const VectorZZ& cand = bkz_res.basis.row(r);
+                size_t amb = dbdd.ambient_dimension();
+                if (cand[amb - 1].abs() == BigInt(1)) {
+                    VectorZZ cand_s = reconstructor.recover_secret(cand);
+                    if (reconstructor.verify_recovery(cand_s)) {
+                        rec = true;
+                        break;
+                    }
+                }
+            }
+            if (!rec) {
+                auto rec_dbdd = BKZReduction::recover_dbdd_secret(bkz_res.basis, dbdd);
+                if (rec_dbdd.has_value()) {
+                    VectorZZ cand_s = reconstructor.recover_secret(*rec_dbdd);
+                    if (reconstructor.verify_recovery(cand_s)) {
+                        rec = true;
+                    }
+                }
+            }
+            if (rec) success_count++;
+        }
+
+        double mean_ms = total_ms / trials;
+        double var_ms = 0.0;
+        for (double x : times_ms) var_ms += (x - mean_ms) * (x - mean_ms);
+        const double std_ms = std::sqrt(var_ms / static_cast<double>(trials));
+        double mean_tours = total_tours / trials;
+        double succ_rate = 100.0 * success_count / trials;
+
+        std::cout << std::left << std::setw(8) << num_h
+                  << std::setw(8) << final_dim
+                  << std::setw(16) << std::fixed << std::setprecision(2) << mean_ms
+                  << std::setw(14) << std::fixed << std::setprecision(1) << mean_tours
+                  << std::setw(16) << (std::to_string(int(succ_rate)) + "%")
+                  << std::setw(16) << pred_beta
+                  << "\n";
+
+        e2e_csv << num_h << "," << final_dim << "," << mean_ms << "," << std_ms << ","
+                << mean_tours << "," << succ_rate << "," << pred_beta << "\n";
+    }
+    e2e_csv.close();
+    std::cout << "\n[OK] End-to-end BKZ recovery data written to data/e2e_bkz_recovery.csv\n";
+
+}
+
+int main(int argc, char** argv) {
+    // --decay-only: run only the security-decay sweep (Chapter 6.2) and leave the end-to-end BKZ data untouched.
+    // --e2e-only: run only the end-to-end BKZ benchmark and leave the decay data untouched.
+    bool decay_only = false;
+    for (int i = 1; i < argc; ++i) {
+        if (std::string(argv[i]) == "--decay-only") {
+            decay_only = true;
+        }
+        if (std::string(argv[i]) == "--e2e-only") {
+            run_e2e_benchmark();
+            return 0;
+        }
+    }
+
     std::cout << "==================================================================================\n";
     std::cout << "          DBDD Framework: 02_paper_benchmark (Dachman-Soled et al. Section 5.2)        \n";
     std::cout << "==================================================================================\n";
@@ -140,9 +304,16 @@ int main() {
         DBDDStateStatistics stats = dbdd.to_state_statistics();
 
         std::mt19937_64 rng(base_seed + 1000 + num_h);
+        std::vector<std::vector<double>> hint_basis;
         for (size_t i = 0; i < num_h; ++i) {
             VectorDouble v = sample_weight5_ternary(stats.ambient_dimension(), rng);
-            stats.integrate_perfect_hint(v, 0.0, 1.0);
+            // A perfect hint multiplies the volume by the norm of the (primitive) dual vector projected onto
+            // the span of the current lattice, not by 1 (Lemma 12 / Remark 25 of Dachman-Soled et al.).
+            const double dual_norm = projected_dual_norm(v, hint_basis);
+            if (dual_norm == 0.0) {
+                continue; // dependent on earlier hints: carries no new information
+            }
+            stats.integrate_perfect_hint(v, 0.0, dual_norm);
         }
 
         auto gsa = stats.estimate_attack_gsa();
@@ -231,112 +402,11 @@ int main() {
     }
     csv.close();
     std::cout << "\n[OK] Paper validation decay data written to data/paper_validation_decay.csv\n";
-
-    // -------------------------------------------------------------------------
-    // 5. Concrete End-to-End Secret Recovery under BKZ Reduction
-    // -------------------------------------------------------------------------
-    std::cout << "\n==================================================================================\n";
-    std::cout << "     Tractable End-to-End BKZ Secret Recovery Benchmark (n=m=12, q=257, CBD(3))   \n";
-    std::cout << "==================================================================================\n";
-
-    const size_t e2e_n = 12;
-    const size_t e2e_m = 12;
-    const BigInt e2e_q(257);
-    CenteredBinomial e2e_s_dist(3, 101);
-    CenteredBinomial e2e_e_dist(3, 102);
-
-    std::ofstream e2e_csv("data/e2e_bkz_recovery.csv");
-    e2e_csv << "k,dimension,mean_time_ms,mean_tours,success_rate,predicted_beta\n";
-
-    std::cout << std::left << std::setw(8) << "Hints"
-              << std::setw(8) << "Dim"
-              << std::setw(16) << "Mean Time (ms)"
-              << std::setw(14) << "Mean Tours"
-              << std::setw(16) << "Success Rate"
-              << std::setw(16) << "Predicted Beta"
-              << "\n"
-              << std::string(78, '-') << "\n";
-
-    std::vector<size_t> e2e_hints = {0, 2, 4, 6, 8, 10, 12};
-    const size_t trials = 15;
-
-    for (size_t num_h : e2e_hints) {
-        double total_ms = 0.0;
-        double total_tours = 0.0;
-        size_t success_count = 0;
-        size_t final_dim = 0;
-        size_t pred_beta = 0;
-
-        for (size_t t = 0; t < trials; ++t) {
-            uint64_t seed = 2026 + t * 47;
-            auto lwe = LWEInstance::generate_random(e2e_n, e2e_m, e2e_q, e2e_s_dist, e2e_e_dist, seed);
-            SecretReconstructor reconstructor(lwe);
-
-            auto kannan = KannanEmbedding::from_lwe(lwe, e2e_e_dist, e2e_s_dist);
-            DBDDInstance dbdd = DBDDInstance::from_kannan(kannan);
-
-            for (size_t h = 0; h < num_h && h < e2e_n; ++h) {
-                VectorZZ v(e2e_n, BigInt(0));
-                v[h] = BigInt(1);
-                dbdd.integrate_perfect_hint(v, lwe.test_only_secret()[h]);
-            }
-
-            dbdd.homogenize();
-            dbdd.isotropize();
-
-            final_dim = dbdd.dimension();
-            auto gsa = SecurityEstimator::gsa_intersect(dbdd);
-            pred_beta = gsa.beta;
-
-            auto t0 = std::chrono::high_resolution_clock::now();
-            BKZParameters params(4, 15, 0.99);
-            auto bkz_res = bkz_reduce(dbdd.basis(), params);
-            auto t1 = std::chrono::high_resolution_clock::now();
-
-            total_ms += std::chrono::duration<double, std::milli>(t1 - t0).count();
-            total_tours += bkz_res.tours_completed;
-
-            bool rec = false;
-            for (size_t r = 0; r < bkz_res.basis.dimension(); ++r) {
-                const VectorZZ& cand = bkz_res.basis.row(r);
-                size_t amb = dbdd.ambient_dimension();
-                if (cand[amb - 1].abs() == BigInt(1)) {
-                    VectorZZ cand_s = reconstructor.recover_secret(cand);
-                    if (reconstructor.verify_recovery(cand_s)) {
-                        rec = true;
-                        break;
-                    }
-                }
-            }
-            if (!rec) {
-                auto rec_dbdd = BKZReduction::recover_dbdd_secret(bkz_res.basis, dbdd);
-                if (rec_dbdd.has_value()) {
-                    VectorZZ cand_s = reconstructor.recover_secret(*rec_dbdd);
-                    if (reconstructor.verify_recovery(cand_s)) {
-                        rec = true;
-                    }
-                }
-            }
-            if (rec) success_count++;
-        }
-
-        double mean_ms = total_ms / trials;
-        double mean_tours = total_tours / trials;
-        double succ_rate = 100.0 * success_count / trials;
-
-        std::cout << std::left << std::setw(8) << num_h
-                  << std::setw(8) << final_dim
-                  << std::setw(16) << std::fixed << std::setprecision(2) << mean_ms
-                  << std::setw(14) << std::fixed << std::setprecision(1) << mean_tours
-                  << std::setw(16) << (std::to_string(int(succ_rate)) + "%")
-                  << std::setw(16) << pred_beta
-                  << "\n";
-
-        e2e_csv << num_h << "," << final_dim << "," << mean_ms << ","
-                << mean_tours << "," << succ_rate << "," << pred_beta << "\n";
+    if (decay_only) {
+        return 0;
     }
-    e2e_csv.close();
-    std::cout << "\n[OK] End-to-end BKZ recovery data written to data/e2e_bkz_recovery.csv\n";
+
+    run_e2e_benchmark();
 
     std::cout << std::string(98, '-') << "\n";
     std::cout << "All benchmarks completed successfully.\n\n";

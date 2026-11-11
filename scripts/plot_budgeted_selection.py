@@ -52,14 +52,21 @@ POOL_TITLES = {
     "C": "Pool C: overlapping sums",
     "D": "Pool D: dense combinations",
 }
+# Short titles for the four-panel figures, which are sized for the report's text width.
+POOL_SHORT = {
+    "A": "A: per coordinate",
+    "B": "B: repeated",
+    "C": "C: overlapping sums",
+    "D": "D: dense",
+}
 
 plt.rcParams.update({
     "figure.facecolor": SURFACE,
     "axes.facecolor": SURFACE,
     "savefig.facecolor": SURFACE,
-    "font.size": 9,
-    "axes.titlesize": 9.5,
-    "axes.labelsize": 9,
+    "font.size": 8,
+    "axes.titlesize": 8.5,
+    "axes.labelsize": 8,
     "axes.titlecolor": INK,
     "axes.labelcolor": INK_SECONDARY,
     "axes.edgecolor": AXIS,
@@ -76,9 +83,9 @@ plt.rcParams.update({
     "xtick.labelcolor": INK_SECONDARY,
     "ytick.labelcolor": INK_SECONDARY,
     "legend.frameon": False,
-    "legend.fontsize": 9,
-    "lines.linewidth": 2.0,
-    "lines.markersize": 6.5,
+    "legend.fontsize": 8,
+    "lines.linewidth": 1.5,
+    "lines.markersize": 4.5,
 })
 
 
@@ -145,11 +152,10 @@ def fig_quality(rows, outdir):
     gain = group_mean(e1, ("pool", "k", "strategy"), "f")
     order = ["random", "static", "greedy", "lookahead2"]
 
-    fig, axes = plt.subplots(2, len(pools), figsize=(3.0 * len(pools), 5.4), sharex=True, sharey="row",
-                             squeeze=False)
+    fig, axes = plt.subplots(2, len(pools), figsize=(7.0, 4.6), sharex=True, sharey="row", squeeze=False)
     for col, pool in enumerate(pools):
-        for row, (table, ylabel) in enumerate(((beta, "Required BKZ block size β"),
-                                               (gain, "Log-volume gain f(S) (nats)"))):
+        for row, (table, ylabel) in enumerate(((beta, "Required block size β"),
+                                               (gain, "Gain f(S) (nats)"))):
             ax = axes[row][col]
             for strategy in order:
                 xs = [k for k in budgets if (pool, k, strategy) in table]
@@ -157,12 +163,12 @@ def fig_quality(rows, outdir):
                     ax.plot(xs, [table[(pool, k, strategy)] for k in xs], **line_kwargs(strategy),
                             zorder=3 if strategy == "lookahead2" else 2)
             if row == 0:
-                ax.set_title(POOL_TITLES.get(pool, f"Pool {pool}"), loc="left")
+                ax.set_title(POOL_SHORT.get(pool, f"Pool {pool}"), loc="left")
             else:
-                ax.set_xlabel("Budget k (hints selected)")
+                ax.set_xlabel("Budget k")
             if col == 0:
                 ax.set_ylabel(ylabel)
-            ax.set_xticks(budgets)
+            ax.set_xticks([k for k in budgets if k != 5])
     # The y-axis is shared along each row, so set its range once from all panels of that row.
     for row, table in enumerate((beta, gain)):
         axes[row][0].set_ylim(0, 1.06 * max(table.values()))
@@ -187,7 +193,7 @@ def fig_certificate(rows, outdir):
     lower = group_mean(greedy, ("pool", "k"), "beta_opt_lower")
     color = STRATEGY_STYLE["greedy"]["color"]
 
-    fig, axes = plt.subplots(1, len(pools), figsize=(3.0 * len(pools), 3.1), sharey=True, squeeze=False)
+    fig, axes = plt.subplots(1, len(pools), figsize=(7.0, 2.6), sharey=True, squeeze=False)
     for col, pool in enumerate(pools):
         ax = axes[0][col]
         xs = [k for k in budgets if (pool, k) in beta]
@@ -200,16 +206,18 @@ def fig_certificate(rows, outdir):
         kwargs["label"] = "Greedy selection"
         ax.plot(xs, top, **kwargs)
         widest = max(range(len(xs)), key=lambda i: top[i] - bottom[i])
-        ax.text(0.97, 0.95, f"widest gap: {top[widest] - bottom[widest]:.2f} at k = {xs[widest]}",
-                transform=ax.transAxes, ha="right", va="top", color=INK_SECONDARY, fontsize=8.5)
-        ax.set_title(POOL_TITLES.get(pool, f"Pool {pool}"), loc="left")
-        ax.set_xlabel("Budget k (hints selected)")
-        ax.set_xticks(xs)
+        gap = top[widest] - bottom[widest]
+        note = "gap 0 at every k" if gap < 0.005 else f"max gap {gap:.2f}\nat k = {xs[widest]}"
+        ax.text(0.97, 0.95, note,
+                transform=ax.transAxes, ha="right", va="top", color=INK_SECONDARY, fontsize=7.5)
+        ax.set_title(POOL_SHORT.get(pool, f"Pool {pool}"), loc="left")
+        ax.set_xlabel("Budget k")
+        ax.set_xticks([k for k in xs if k != 5])
         ax.set_ylim(bottom=0)
         if col == 0:
-            ax.set_ylabel("Required BKZ block size β")
+            ax.set_ylabel("Required block size β")
     handles, labels = axes[0][0].get_legend_handles_labels()
-    fig.legend(handles[::-1], labels[::-1], loc="upper center", ncol=2, bbox_to_anchor=(0.5, 1.05))
+    fig.legend(handles[::-1], labels[::-1], loc="upper center", ncol=2, bbox_to_anchor=(0.5, 1.08))
     fig.tight_layout(rect=(0, 0, 1, 0.95))
     save(fig, outdir, "fig2_certified_gap")
 
@@ -225,7 +233,7 @@ def fig_cost(rows, outdir):
     times = group_mean(e4, ("pool", "N", "strategy"), "ms")
     budget = e4[0]["k"]
 
-    fig, axes = plt.subplots(2, len(pools), figsize=(3.9 * len(pools), 5.6), sharex=True, squeeze=False)
+    fig, axes = plt.subplots(2, len(pools), figsize=(7.0, 5.0), sharex=True, squeeze=False)
     for col, pool in enumerate(pools):
         for row, (table, ylabel, fmt) in enumerate(((evals, "Marginal-gain evaluations", "{:,.0f}"),
                                                     (times, "Selection time (ms)", "{:.2f}"))):

@@ -131,6 +131,9 @@ if(BUILD_EXAMPLES)
 
     add_executable(example_06_budgeted_selection examples/06_budgeted_selection.cpp)
     target_link_libraries(example_06_budgeted_selection PRIVATE dbdd)
+
+    add_executable(example_07_attack_validation examples/07_attack_validation.cpp)
+    target_link_libraries(example_07_attack_validation PRIVATE dbdd)
 endif()
 
 # Benchmarks (Phase 20)
