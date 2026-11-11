@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3.4 & Figure 4 (CRYPTO 2020 / IACR ePrint 2020/292)
+// Paper Reference: Dachman-Soled et al. Section 3.4 & Figure 4 (CRYPTO 2020 / IACR ePrint 2020/292)
 // Reference Sage: leaky-LWE-Estimator/framework/utils.sage (compute_beta_delta & conditional_chi_squared)
 // Mathematical Purpose: Probabilistic BKZ simulation security estimator modeling projected secret
 // vectors under spherical Gaussian distributions and computing detection probabilities.
@@ -65,7 +65,7 @@ struct ProbabilisticResult {
 };
 
 /**
- * @brief Refined probabilistic simulation security estimator (Albrecht et al., Section 3.4).
+ * @brief Refined probabilistic simulation security estimator (Dachman-Soled et al., Section 3.4).
  */
 class ProbabilisticEstimator {
 public:
@@ -151,7 +151,7 @@ public:
         const ProbabilisticOptions& options = {});
 
     // =========================================================================
-    // Progressive BKZ Simulation (Albrecht et al., Section 3.4 & Figure 4)
+    // Progressive BKZ Simulation (Dachman-Soled et al., Section 3.4 & Figure 4)
     // =========================================================================
 
     /**

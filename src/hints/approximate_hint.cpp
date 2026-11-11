@@ -5,7 +5,7 @@
 
 namespace dbdd {
 
-// Paper Reference: Albrecht et al. Section 3.3 / Equations (20)-(23)
+// Paper Reference: Dachman-Soled et al. Section 3.3 / Equations (20)-(23)
 // Mathematical Purpose: Implementation of ApproximateHint for DBDD.
 // Updates target prior distribution (mu, Sigma) via Gaussian conditioning on noisy linear observation,
 // leaving the lattice basis Lambda strictly unchanged.

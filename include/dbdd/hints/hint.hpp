@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3 / docs/paper_mapping.md / main_plan.txt Section 16
+// Paper Reference: Dachman-Soled et al. Section 3 / docs/paper_mapping.md / main_plan.txt Section 16
 // Mathematical Purpose: Abstract base class establishing the polymorphic interface for
 // side-information hint integration into the DBDD instance (Phases 06-10).
 
@@ -11,14 +11,14 @@ namespace dbdd {
 class DBDDInstance;
 
 /**
- * @brief Categorization of side-information hint types according to Albrecht et al.
+ * @brief Categorization of side-information hint types according to Dachman-Soled et al.
  */
 enum class HintType {
-    Perfect,      // Section 3.1: Hyperplane intersection <s, v> = l
-    Modular,      // Section 3.2: Dual sparsification modulo k: <s, v> = l (mod k)
-    Approximate,  // Section 3.3: Gaussian noise conditioning: <s, v> = l + e
-    Aposteriori,  // Section 3.3: Bayesian posterior conditioning
-    ShortVector   // Section 3.5: Dual lattice vector projection
+    Perfect,      // Section 4.1: Hyperplane intersection <s, v> = l
+    Modular,      // Section 4.2: Lattice sparsification modulo k: <s, v> = l (mod k)
+    Approximate,  // Section 4.3: Gaussian noise conditioning: <s, v> = l + e
+    Aposteriori,  // Section 4.4: Bayesian posterior conditioning
+    ShortVector   // Section 4.5: Projection orthogonal to a short primal lattice vector v in Lambda
 };
 
 /**

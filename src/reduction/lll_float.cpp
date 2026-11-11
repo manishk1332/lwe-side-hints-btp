@@ -3,7 +3,7 @@
 
 namespace dbdd {
 
-// Paper Reference: Lenstra, Lenstra, Lovász (1982) / Albrecht et al. Section 2
+// Paper Reference: Lenstra, Lenstra, Lovász (1982) / Dachman-Soled et al. Section 2
 // Mathematical Purpose: Floating-point LLL reduction using MPFR (BigReal) and double.
 // Inputs:
 //     basis: Input integer lattice basis B in Z^{d x m} (row-basis convention)

@@ -1,7 +1,7 @@
 # Paper to Code Mapping
 
 This document maps mathematical equations and concepts from:
-*LWE with Side Information: Attacks and Concrete Security Estimation* (Albrecht et al., 2020)
+*LWE with Side Information: Attacks and Concrete Security Estimation* (Dachman-Soled et al., 2020)
 to the corresponding C++ classes, functions, and unit tests.
 
 | Paper Concept / Equation | Paper Ref | C++ Component | Test File |

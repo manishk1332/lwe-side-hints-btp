@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2, Section 3 / docs/mathematical_conventions.md Section 1
+// Paper Reference: Dachman-Soled et al. Section 2, Section 3 / docs/mathematical_conventions.md Section 1
 // Mathematical Purpose: Encapsulates a lattice Lambda defined by a basis matrix B in K^{d x m}.
 // Caches volume and log-volume to avoid redundant determinant computations.
 // Supports dual lattice extraction, vector containment checks, and orthogonal projections.

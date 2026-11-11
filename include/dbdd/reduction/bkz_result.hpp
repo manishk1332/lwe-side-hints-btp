@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Schnorr (1987) / Schnorr-Euchner (1994) / Chen-Nguyen (2011) / Albrecht et al. Section 2
+// Paper Reference: Schnorr (1987) / Schnorr-Euchner (1994) / Chen-Nguyen (2011) / Dachman-Soled et al. Section 2
 // Mathematical Purpose: Result container for BKZ reduction profiling and validation.
 
 #include "dbdd/lattice/basis.hpp"

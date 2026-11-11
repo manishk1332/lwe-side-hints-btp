@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3.1, Section 3.2, Section 3.5 / main_plan.txt Section 10
+// Paper Reference: Dachman-Soled et al. Section 3.1, Section 3.2, Section 3.5 / main_plan.txt Section 10
 // Mathematical Purpose: Exact primitivity verification for:
 //   1. Integer vectors: gcd(v_0, ..., v_{m-1}) == 1
 //   2. Lattice vectors: v in Lambda is primitive iff in basis coordinates v = x * B, gcd(x) == 1

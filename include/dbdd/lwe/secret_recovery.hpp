@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3.5 / main_plan.txt Section 22
+// Paper Reference: Dachman-Soled et al. Section 3.5 / main_plan.txt Section 22
 // Mathematical Purpose: Rational linear secret reconstruction after projected solving.
 // Maps candidate vectors w' in Lambda' from lattice reduction back to ground truth secret s in Z^n.
 

@@ -1,7 +1,7 @@
 # Mathematical Conventions
 
 This document specifies the mandatory mathematical conventions for the C++20 implementation of:
-*"LWE with Side Information: Attacks and Concrete Security Estimation"* (Albrecht et al., 2020).
+*"LWE with Side Information: Attacks and Concrete Security Estimation"* (Dachman-Soled et al., 2020).
 
 These conventions prevent transpose, sign, and coordinate orientation bugs across the codebase.
 

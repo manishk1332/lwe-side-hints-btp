@@ -3,7 +3,7 @@
 
 namespace dbdd {
 
-// Paper Reference: Albrecht et al. Section 3.5 / main_plan.txt Section 22
+// Paper Reference: Dachman-Soled et al. Section 3.5 / main_plan.txt Section 22
 // Mathematical Purpose: Implementation of SecretReconstructor for recovering the original LWE secret
 // after projected lattice solving on DBDD instances with short-vector hints.
 

@@ -6,7 +6,7 @@
 
 namespace dbdd {
 
-// Paper Reference: Albrecht et al. Section 3.5 / Equations (27)-(30)
+// Paper Reference: Dachman-Soled et al. Section 3.5 / Equations (27)-(30)
 // Mathematical Purpose: Implementation of ShortVectorHint for DBDD.
 // Projects lattice Lambda' = Lambda * P_v^perp and distribution (mu', Sigma') = (mu P, P^T Sigma P),
 // dropping dimension by 1 (or k) and volume by ||v|| (or sqrt(det(V V^T))).

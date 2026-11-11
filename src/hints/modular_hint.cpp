@@ -8,7 +8,7 @@
 
 namespace dbdd {
 
-// Paper Reference: Albrecht et al. Section 3.2 / Equations (15)-(19)
+// Paper Reference: Dachman-Soled et al. Section 3.2 / Equations (15)-(19)
 // Mathematical Purpose: Implementation of ModularHint for DBDD.
 // Coordinates dual densification, exact dependency elimination, primal sparsification,
 // and 1D discrete Gaussian distribution updates on periodic cosets.

@@ -1,6 +1,6 @@
 // benchmarks/bench_security_estimator.cpp
 //
-// Paper Reference: Albrecht et al. Section 3.4, 4.4 / main_plan.txt Section 58
+// Paper Reference: Dachman-Soled et al. Section 3.4, 4.4 / main_plan.txt Section 58
 // Mathematical Purpose: Throughput benchmark for security estimation engines:
 //   - GSA-Intersect Security Estimator (SecurityEstimator::gsa_intersect)
 //   - Probabilistic Simulation Estimator (SecurityEstimator::probabilistic)

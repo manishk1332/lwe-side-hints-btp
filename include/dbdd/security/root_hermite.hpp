@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3.2, Eq. (10) / Chen-Nguyen 2011 Eq. (1)
+// Paper Reference: Dachman-Soled et al. Section 3.2, Eq. (10) / Chen-Nguyen 2011 Eq. (1)
 // Mathematical Purpose: Computes the root-Hermite factor delta_beta as a function of the BKZ block size beta.
 // For beta >= 50, evaluates the Gaussian heuristic formula:
 //     delta_beta = ( (pi * beta)^(1/beta) * (beta / (2 * pi * e)) )^(1 / (2*beta - 2))

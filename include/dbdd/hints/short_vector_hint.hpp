@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3.5 / Equations (27)-(30) / docs/mathematical_conventions.md
+// Paper Reference: Dachman-Soled et al. Section 3.5 / Equations (27)-(30) / docs/mathematical_conventions.md
 // Mathematical Purpose: Short-vector hint v in Lambda orthogonal projection.
 // Projects lattice Lambda' = Lambda * P_v^perp and distribution (mu', Sigma') = (mu P, P^T Sigma P).
 // Drops lattice dimension by 1 (or k) and contracts volume by ||v|| (or sqrt(det(V V^T))).

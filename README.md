@@ -5,7 +5,7 @@
 
 A self-contained C++20 implementation of the cryptanalytic framework from:
 > **"LWE with Side Information: Attacks and Concrete Security Estimation"**  
-> *Martin R. Albrecht, Rachel Player, Samed Düzlü, Michael Walter*  
+> *Dana Dachman-Soled, Léo Ducas, Huijing Gong, Mélissa Rossi*  
 > **CRYPTO 2020** / [IACR ePrint 2020/292](https://eprint.iacr.org/2020/292).
 
 ---
@@ -81,6 +81,7 @@ lwe-side-hints-btp/
 ├── README.md               # Project documentation manual
 ├── cmake/                  # CMake discovery modules (FindGMP.cmake, FindMPFR.cmake)
 ├── docs/                   # In-depth architectural & mathematical documentation
+│   ├── mathematical_algorithms.md  # Complete mathematical specification (Algorithms 1-18)
 │   ├── algorithm_notes.md
 │   ├── architecture.md
 │   ├── mathematical_conventions.md
@@ -171,6 +172,9 @@ Upon compilation, the following binaries are produced inside `build/`:
 
 ## 6. Running the Demonstrations
 
+> [!TIP]
+> For a complete step-by-step walkthrough with mathematical explanations, terminal output breakdowns, and technical FAQ, see [`docs/demo_guide.md`](docs/demo_guide.md).
+
 After compiling, the built demonstration binaries can be executed directly from the project root:
 
 ### Toy Pipeline (`example_01_toy_pipeline`)
@@ -188,7 +192,7 @@ Executes an end-to-end secret recovery attack on an LWE instance ($n=3, m=3, q=1
 ```
 
 ### Paper Benchmark Reproduction (`example_02_paper_benchmark`)
-Reproduces the benchmark sweeps from Albrecht et al. Section 5.2 (Table 1 & Figure 5) on $n=m=70, q=3301, \sigma=\sqrt{20}$ across baseline, perfect hints, modular hints (mod 3), and approximate hints:
+Reproduces the benchmark sweeps from Dachman-Soled et al. Section 5.2 (Table 1 & Figure 5) on $n=m=70, q=3301, \sigma=\sqrt{20}$ across baseline, perfect hints, modular hints (mod 3), and approximate hints:
 
 ```bash
 ./build/example_02_paper_benchmark
@@ -256,21 +260,24 @@ To run a specific test suite directly:
 ## 10. Documentation & Citation
 
 ### Detailed Documentation
-For deep dives into design and math, see the tracked documentation in `docs/`:
+For deep dives into design, math, and presentations, see the tracked documentation in `docs/`:
+- [`docs/demo_guide.md`](docs/demo_guide.md): Demonstration and walkthrough guide with exact commands, step-by-step mathematical explanations, terminal output breakdowns, and technical FAQ.
+- [`docs/formal_theorems_and_proofs.md`](docs/formal_theorems_and_proofs.md) (and [LaTeX Monograph](docs/formal_theorems_and_proofs.tex) / [`PDF`](docs/formal_theorems_and_proofs.pdf)): Rigorous formal statements (Theorems, Lemmas, Corollaries) and complete step-by-step algebraic proofs for LWE to uSVP, Kannan embedding, Homogenization, Isotropization, all 5 hint types, Hint-Worthiness, GSA/Probabilistic hardness, and LLL/BKZ guarantees.
+- [`docs/mathematical_algorithms.md`](docs/mathematical_algorithms.md) (and [LaTeX Monograph](docs/mathematical_algorithms.tex) / [`PDF`](docs/mathematical_algorithms.pdf)): Full mathematical specification of all 18 algorithmic blocks from LWE to uSVP, hint integration, estimators, and LLL/BKZ reduction formatted with complete LaTeX mathematical equations.
 - [`docs/architecture.md`](docs/architecture.md): Architectural layers and component boundaries.
 - [`docs/mathematical_conventions.md`](docs/mathematical_conventions.md): Row-basis convention, PSD constraints, and numerical precision rules.
 - [`docs/algorithm_notes.md`](docs/algorithm_notes.md): Algorithmic implementation notes for LLL, BKZ, and hint processors.
-- [`docs/paper_mapping.md`](docs/paper_mapping.md): Mapping between the codebase and equations in Albrecht et al. (CRYPTO 2020).
+- [`docs/paper_mapping.md`](docs/paper_mapping.md): Mapping between the codebase and equations in Dachman-Soled et al. (CRYPTO 2020).
 
 ### Citation
 If you use this library in your research, please cite the foundational paper:
 
 ```bibtex
-@inproceedings{DBLP:conf/crypto/AlbrechtPDW20,
-  author    = {Martin R. Albrecht and
-               Rachel Player and
-               Samed D{\"{u}}zl{\"{u}} and
-               Michael Walter},
+@inproceedings{DBLP:conf/crypto/Dachman-SoledDG20,
+  author    = {Dana Dachman{-}Soled and
+               L{\'{e}}o Ducas and
+               Huijing Gong and
+               M{\'{e}}lissa Rossi},
   title     = {LWE with Side Information: Attacks and Concrete Security Estimation},
   booktitle = {Advances in Cryptology - {CRYPTO} 2020},
   series    = {Lecture Notes in Computer Science},
@@ -278,6 +285,6 @@ If you use this library in your research, please cite the foundational paper:
   pages     = {329--358},
   publisher = {Springer},
   year      = {2020},
-  doi       = {10.1007/978-3-030-56784-2\_12}
+  doi       = {10.1007/978-3-030-56880-1\_12}
 }
 ```

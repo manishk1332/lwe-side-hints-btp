@@ -80,6 +80,8 @@ add_library(dbdd STATIC
     src/hints/short_vector_hint.cpp
     src/hints/worthiness.cpp
     src/hints/greedy_selection.cpp
+    src/hints/budgeted_selection.cpp
+    src/hints/candidate_pools.cpp
     src/lwe/secret_recovery.cpp
     src/linalg/eigendecomposition.cpp
     src/dbdd/homogenization.cpp
@@ -126,6 +128,9 @@ if(BUILD_EXAMPLES)
 
     add_executable(example_03_structural_hints examples/03_structural_hints.cpp)
     target_link_libraries(example_03_structural_hints PRIVATE dbdd)
+
+    add_executable(example_06_budgeted_selection examples/06_budgeted_selection.cpp)
+    target_link_libraries(example_06_budgeted_selection PRIVATE dbdd)
 endif()
 
 # Benchmarks (Phase 20)

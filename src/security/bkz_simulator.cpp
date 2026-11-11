@@ -1,4 +1,4 @@
-// Paper Reference: Albrecht et al. Section 3.4 & Figure 4 (CRYPTO 2020 / IACR ePrint 2020/292)
+// Paper Reference: Dachman-Soled et al. Section 3.4 & Figure 4 (CRYPTO 2020 / IACR ePrint 2020/292)
 // Chen & Nguyen, "BKZ 2.0: Better Lattice Security Estimates" (ASIACRYPT 2011, Section 3)
 // Mathematical Purpose: Implementation of the BKZ basis profile simulator.
 

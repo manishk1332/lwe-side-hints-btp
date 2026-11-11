@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2, Section 3 / docs/mathematical_conventions.md Section 3
+// Paper Reference: Dachman-Soled et al. Section 2, Section 3 / docs/mathematical_conventions.md Section 3
 // Mathematical Purpose: Encapsulates an ellipsoid E(mu, Sigma) = { x in R^d : (x - mu) Sigma^dagger (x - mu)^T <= 1 }.
 // Enforces covariance symmetry Sigma = 1/2 (Sigma + Sigma^T) and positive semidefiniteness.
 // Computes Moore-Penrose pseudoinverse Sigma^dagger with degenerate subspace support.

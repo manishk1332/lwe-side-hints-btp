@@ -2,7 +2,7 @@
 
 namespace dbdd {
 
-// Paper Reference: Lenstra, Lenstra, Lovász (1982) / Cohen Alg. 2.6.3 / Albrecht et al. Section 2
+// Paper Reference: Lenstra, Lenstra, Lovász (1982) / Cohen Alg. 2.6.3 / Dachman-Soled et al. Section 2
 // Mathematical Purpose: Exact rational LLL reduction over BigInt and BigRational bases.
 // Inputs:
 //     basis: Input lattice basis B in K^{d x m} (row-basis convention)

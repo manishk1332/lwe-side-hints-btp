@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 4.5 / main_plan.txt Section 51
+// Paper Reference: Dachman-Soled et al. Section 4.5 / main_plan.txt Section 51
 // Mathematical Purpose: Generates canonical and difference q-vectors for LWE lattices
 // and validates their membership in transformed (subspace) lattices.
 

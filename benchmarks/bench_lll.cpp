@@ -1,6 +1,6 @@
 // benchmarks/bench_lll.cpp
 //
-// Paper Reference: Albrecht et al. Section 2 / main_plan.txt Section 58
+// Paper Reference: Dachman-Soled et al. Section 2 / main_plan.txt Section 58
 // Mathematical Purpose: Rigorous performance and quality benchmark comparing
 // exact rational arithmetic LLL (LLLExact) with floating-point MPFR LLL (LLLFloat)
 // across dimensions d in [10, 50]. Measures:

@@ -4,7 +4,7 @@
 
 namespace dbdd {
 
-// Paper Reference: Albrecht et al. Section 3.3 / Equations (24)-(26)
+// Paper Reference: Dachman-Soled et al. Section 3.3 / Equations (24)-(26)
 // Mathematical Purpose: Implementation of AposterioriApproximateHint for DBDD.
 // Directly conditions target prior distribution (mu, Sigma) along directional projection v_bar
 // to match posterior parameters (mu_post, var_post), leaving the lattice basis Lambda strictly unchanged.

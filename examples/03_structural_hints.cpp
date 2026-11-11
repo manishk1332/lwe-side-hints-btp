@@ -1,6 +1,6 @@
 // examples/03_structural_hints.cpp
 //
-// Paper Reference: Albrecht et al. (CRYPTO 2020) Section 4.5 & Section 6 / main_plan.txt Section 63
+// Paper Reference: Dachman-Soled et al. (CRYPTO 2020) Section 4.5 & Section 6 / main_plan.txt Section 63
 // Mathematical Purpose: Demonstrates structural secret constraints and short-vector worthiness optimization:
 //   1. Balanced ternary secret: sum_{i=0}^{n-1} s_i = 0
 //   2. Integration of structural perfect hint: dimension drop and volume expansion

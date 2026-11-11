@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3.1 & 3.2, Eq. (9), Eq. (11)
+// Paper Reference: Dachman-Soled et al. Section 3.1 & 3.2, Eq. (9), Eq. (11)
 // Mathematical Purpose: Numerically stable log-domain GSA-Intersect security estimator.
 // Predicts required BKZ block size beta ("bikz") to solve the uSVP lattice instance.
 

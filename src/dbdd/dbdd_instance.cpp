@@ -1,4 +1,4 @@
-// Paper Reference: Albrecht et al. Section 2, Section 3 / docs/mathematical_conventions.md
+// Paper Reference: Dachman-Soled et al. Section 2, Section 3 / docs/mathematical_conventions.md
 // Mathematical Purpose: Implementation of DBDDInstance, Kannan embedding integration,
 // target vector containment and chi-squared validation, and future hint/transformation stubs.
 

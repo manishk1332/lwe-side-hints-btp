@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3.1 & 3.2, Eq. (9), Eq. (11)
+// Paper Reference: Dachman-Soled et al. Section 3.1 & 3.2, Eq. (9), Eq. (11)
 // Mathematical Purpose: Models lattice reduction profiles under Schnorr's Geometric Series Assumption (GSA).
 // Predicts Gram-Schmidt vector lengths, local projected block head lengths, and intersection conditions.
 

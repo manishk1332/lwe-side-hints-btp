@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2 / docs/mathematical_conventions.md Section 4
+// Paper Reference: Dachman-Soled et al. Section 2 / docs/mathematical_conventions.md Section 4
 // Mathematical Purpose: Representation and generation of LWE instances:
 //     - Public parameters: n (dimension), m (samples), q (modulus)
 //     - Public matrix: A in Z_q^{m x n}

@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3 / Fincke-Pohst (1985) / Schnorr-Euchner (1994)
+// Paper Reference: Dachman-Soled et al. Section 3 / Fincke-Pohst (1985) / Schnorr-Euchner (1994)
 // Mathematical Purpose: Abstract SVPOracle interface, parameter container,
 // and result structure for shortest vector algorithms in lattices.
 

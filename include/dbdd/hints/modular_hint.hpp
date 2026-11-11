@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 3.2 / Equations (15)-(19) / docs/mathematical_conventions.md
+// Paper Reference: Dachman-Soled et al. Section 3.2 / Equations (15)-(19) / docs/mathematical_conventions.md
 // Mathematical Purpose: Modular linear hint <s, v> = l (mod k) integration.
 // Homogenizes to <s_bar, v_bar> = 0 (mod k) against embedded target s_bar = (e, s, 1).
 // Handles both:
@@ -96,14 +96,14 @@ public:
     // =========================================================================
 
     /**
-     * @brief Paper Reference: Albrecht et al. Section 3.2
+     * @brief Paper Reference: Dachman-Soled et al. Section 3.2
      * Tests whether directional variance sigma_v^2 falls in the smooth regime:
      * sqrt(sigma_v_sq) >= threshold * k.
      */
     static bool check_smoothness(double directional_variance, double k, double threshold = 2.0);
 
     /**
-     * @brief Paper Reference: Albrecht et al. Section 3.2
+     * @brief Paper Reference: Dachman-Soled et al. Section 3.2
      * Mathematical Purpose: Computes 1D discrete Gaussian mean and variance over coset {l + j * k : j in Z}.
      * 
      * Uses numerically stable exponential summation centered at j_0 = round((mu - l) / k).
@@ -122,7 +122,7 @@ public:
         double l = 0.0);
 
     /**
-     * @brief Paper Reference: Albrecht et al. Section 3.2 / Equations (18) and (19)
+     * @brief Paper Reference: Dachman-Soled et al. Section 3.2 / Equations (18) and (19)
      * Mathematical Purpose: Directional Gaussian distribution update along v_bar.
      * 
      * Formulas:
@@ -152,7 +152,7 @@ public:
         double k);
 
     /**
-     * @brief Paper Reference: Albrecht et al. Section 3.2
+     * @brief Paper Reference: Dachman-Soled et al. Section 3.2
      * Mathematical Purpose: Sparsifies primal lattice basis Lambda -> Lambda' = {x in Lambda : <x, v_bar> = 0 (mod k)}.
      * 
      * Algorithm (Dual-lattice densification & dependency elimination):
@@ -180,7 +180,7 @@ public:
         const BigInt& k);
 
     /**
-     * @brief Paper Reference: Albrecht et al. Section 3.2
+     * @brief Paper Reference: Dachman-Soled et al. Section 3.2
      * Updates lattice state and cached volume: Vol(Lambda') = Vol(Lambda) * (k / gcd(k, u)).
      */
     static LatticeZZ update_lattice(

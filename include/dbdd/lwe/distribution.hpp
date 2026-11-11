@@ -1,6 +1,6 @@
 #pragma once
 
-// Paper Reference: Albrecht et al. Section 2, Section 3
+// Paper Reference: Dachman-Soled et al. Section 2, Section 3
 // Mathematical Purpose: Concrete discrete distributions for LWE secrets and noise:
 //     - Discrete Gaussian D_{Z, sigma}
 //     - Centered Binomial CBD(eta)
