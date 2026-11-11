@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DBDD Cryptanalytic Framework — Interactive LWE & Side Hints Demo</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- KaTeX for LaTeX Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="title-section">
+        <h1>
+          <span>🛡️</span> DBDD Cryptanalytic Framework Demo
+        </h1>
+        <p>Interactive LWE Lattice Reduction & Side Information Integration (Dachman-Soled et al., CRYPTO 2020)</p>
+      </div>
+      <div class="header-controls">
+        <button id="btn-toggle-sidebar" class="btn btn-sm" title="Toggle Setup Sidebar (Maximize screen space for lattice inspection)">
+          <span id="sidebar-icon">◀</span> <span id="sidebar-toggle-text">Hide Setup</span>
+        </button>
+        <button id="btn-slide-mode" class="btn btn-sm" title="Toggle Slide Presentation Mode (High contrast, clean borders for slide screenshots)">
+          <span>📽️</span> Slide Mode
+        </button>
+        <button id="btn-theme-toggle" class="btn btn-sm" title="Toggle Light / Dark Mode">
+          <span id="theme-icon">☀️</span> <span id="theme-text">Light Theme</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Presets Bar -->
+    <section class="presets-card">
+      <h3>
+        <span>⚡</span> Quick Load Sample Test Cases (1-Click Presets)
+      </h3>
+      <div class="presets-grid" id="presets-container">
+        <!-- Preset buttons dynamically injected here -->
+      </div>
+    </section>
+
+    <!-- Main Grid -->
+    <main class="main-grid">
+      <!-- Left Column: Problem Setup & Side Hints Builder -->
+      <section class="setup-column">
+        <!-- Card 1: LWE Parameters -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title"><span>⚙️</span> 1. LWE Problem Setup</h2>
+            <span class="badge" id="lwe-relation-badge">b = s·Aᵀ + e (mod q)</span>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="input-n">Secret Dimension (n)</label>
+              <input type="number" id="input-n" min="1" max="100" value="3">
+            </div>
+            <div class="form-group">
+              <label for="input-m">Number of Samples (m)</label>
+              <input type="number" id="input-m" min="1" max="100" value="3">
+            </div>
+            <div class="form-group">
+              <label for="input-q">Modulus (q)</label>
+              <input type="text" id="input-q" value="1051">
+            </div>
+            <div class="form-group">
+              <label for="input-dist">Distribution</label>
+              <select id="input-dist">
+                <option value="ternary">Uniform Ternary {-1, 0, 1}</option>
+                <option value="gaussian">Discrete Gaussian</option>
+                <option value="binomial">Centered Binomial</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="input-sigma">Noise Std Dev (σ)</label>
+              <input type="number" id="input-sigma" step="0.1" min="0.1" value="1.0">
+            </div>
+            <div class="form-group">
+              <label for="input-seed">RNG Seed</label>
+              <input type="number" id="input-seed" value="53">
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Interactive Side Hints Builder -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title"><span>🧩</span> 2. Side Hints Builder</h2>
+            <span class="badge badge-approx" id="hints-count-badge">3 hints</span>
+          </div>
+
+          <!-- Active hints list -->
+          <div class="hints-list" id="hints-list">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Add Hint Form -->
+          <div style="background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px;">
+            <div style="font-weight: 700; font-size: 0.85rem; margin-bottom: 10px; color: var(--text-primary);">
+              + Add New Side Hint
+            </div>
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label for="new-hint-type">Hint Type</label>
+                <select id="new-hint-type">
+                  <option value="perfect">Perfect Hint (&lang;s, v&rang; = l)</option>
+                  <option value="modular">Modular Hint (&lang;s, v&rang; &equiv; l mod k)</option>
+                  <option value="approximate">Approximate Hint (&lang;s, v&rang; &sim; N(l, &sigma;&sup2;))</option>
+                  <option value="short_vector">Short-Vector Hint (q-vector projection)</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width" id="coord-helper-group">
+                <label for="new-hint-coord">Target Coordinate</label>
+                <select id="new-hint-coord">
+                  <!-- Dynamically populated options for s_0, s_1, ... and Custom Vector -->
+                </select>
+              </div>
+
+              <div class="form-group full-width" id="custom-vector-group" style="display: none;">
+                <label for="new-hint-vector">Custom Vector Coefficients (comma separated)</label>
+                <input type="text" id="new-hint-vector" placeholder="1, 0, -1">
+              </div>
+
+              <div class="form-group" id="modulus-group" style="display: none;">
+                <label for="new-hint-modulus">Modulus (k)</label>
+                <input type="number" id="new-hint-modulus" min="2" value="2">
+              </div>
+
+              <div class="form-group" id="variance-group" style="display: none;">
+                <label for="new-hint-variance">Noise Variance (&sigma;&sup2;)</label>
+                <input type="number" id="new-hint-variance" step="0.05" min="0.01" value="0.25">
+              </div>
+            </div>
+
+            <button id="btn-add-hint" class="btn btn-sm btn-primary" style="width: 100%; margin-top: 6px;">
+              <span>+</span> Add Hint to Pipeline
+            </button>
+          </div>
+
+          <div style="margin-top: 18px;">
+            <button id="btn-run-pipeline" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem;">
+              <span>🚀</span> Run DBDD Pipeline
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Step Stepper & Lattice State Inspector -->
+      <section class="results-column">
+        <!-- Stepper Navigation Header -->
+        <div class="stepper-header" id="stepper-controls">
+          <div class="stepper-nav">
+            <button id="btn-prev-step" class="btn btn-sm"><span>&larr;</span> Prev</button>
+            <span class="step-indicator" id="step-indicator-text">Step 1 of 8</span>
+            <button id="btn-next-step" class="btn btn-sm">Next <span>&rarr;</span></button>
+          </div>
+
+          <div class="stepper-pills" id="stepper-pills">
+            <!-- Step pills injected here -->
+          </div>
+
+          <button id="btn-toggle-view" class="btn btn-sm">
+            <span>📋</span> <span id="toggle-view-text">View All (Timeline)</span>
+          </button>
+        </div>
+
+        <!-- Single Step View (or Timeline View Container) -->
+        <div id="steps-display-container">
+          <!-- Step cards rendered here -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+

@@ -115,6 +115,9 @@ option(BUILD_CLI "Build DBDD command-line interface" ON)
 if(BUILD_CLI)
     add_executable(dbdd_cli src/cli/main.cpp)
     target_link_libraries(dbdd_cli PRIVATE dbdd)
+
+    add_executable(dbdd_demo_runner src/cli/demo_runner.cpp)
+    target_link_libraries(dbdd_demo_runner PRIVATE dbdd)
 endif()
 
 # Examples (Phase 20)
