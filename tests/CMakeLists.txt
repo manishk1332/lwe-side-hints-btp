@@ -80,6 +80,9 @@ add_dbdd_test(test_probabilistic security/test_probabilistic.cpp)
 # Phase 19: Hint Worthiness & Optimization Tests
 add_dbdd_test(test_worthiness hints/test_worthiness.cpp)
 
+# Thesis extension: Budgeted Hint Selection (D-optimal design)
+add_dbdd_test(test_budgeted_selection hints/test_budgeted_selection.cpp)
+
 # Phase 20: Paper Reproduction Integration Tests
 add_dbdd_test(test_paper_reproduction integration/test_paper_reproduction.cpp)
 

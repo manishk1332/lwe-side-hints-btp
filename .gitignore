@@ -75,3 +75,6 @@ plans/
 docs/
 innovation/
 report
+
+# Python virtual environment for scripts/
+.venv/
