@@ -23,8 +23,11 @@ plt.rcParams.update({
     "figure.facecolor": SURFACE,
     "axes.facecolor": SURFACE,
     "savefig.facecolor": SURFACE,
-    "font.size": 10,
+    "font.size": 8,
     "font.family": "serif",
+    "mathtext.fontset": "dejavuserif",
+    "axes.spines.top": False,
+    "axes.spines.right": False,
     "axes.edgecolor": AXIS,
     "axes.linewidth": 0.8,
     "grid.color": GRID,
@@ -48,12 +51,13 @@ def plot_paper_validation(decay_csv, out_pdf, out_png):
                 data[ht][1].append(float(row["beta_gsa"]))
                 data[ht][2].append(float(row["beta_prob"]))
 
-    fig, axes = plt.subplots(1, 3, figsize=(14, 4.4), sharey=True)
+    # Sized for the text width of the report (about 6.5 in), so that 8 pt text prints at 8 pt.
+    fig, axes = plt.subplots(1, 3, figsize=(7.0, 2.6), sharey=True)
 
     configs = [
-        ("Perfect", axes[0], "# Perfect Hints (revealing coordinates)", "Perfect Hints\n(Exact secret reveals)"),
-        ("Modular", axes[1], "# Modular Hints (mod 11)", "Modular Hints\n(mod 11, random weight 5)"),
-        ("Approximate", axes[2], "# Approximate Hints (sigma_e^2 = 3)", "Approximate Hints\n(sigma_e^2 = 3, weight 5)"),
+        ("Perfect", axes[0], "Number of perfect hints", "Perfect hints"),
+        ("Modular", axes[1], "Number of modular hints", "Modular hints (mod 11)"),
+        ("Approximate", axes[2], "Number of approximate hints", r"Approximate hints ($\sigma_\epsilon^2 = 3$)"),
     ]
 
     for ht, ax, xlabel, subtitle in configs:
@@ -64,18 +68,18 @@ def plot_paper_validation(decay_csv, out_pdf, out_png):
         y_gsa = [p[1] for p in pts]
         y_prob = [p[2] for p in pts]
 
-        ax.grid(True, linestyle="--", alpha=0.7)
-        ax.plot(x, y_gsa, marker="o", color="#2a78d6", linewidth=1.8, markersize=5, label="GSA-Intersect Prediction")
-        ax.plot(x, y_prob, marker="^", color="#eb6834", linewidth=1.8, markersize=5, linestyle="--", label="Probabilistic Simulator")
+        ax.grid(True, linestyle="-", alpha=0.7)
+        ax.plot(x, y_gsa, marker="o", color="#2a78d6", linewidth=1.5, markersize=3.5, label="GSA-Intersect")
+        ax.plot(x, y_prob, marker="^", color="#eb6834", linewidth=1.5, markersize=3.5, linestyle="--",
+                label="Probabilistic simulation")
 
-        ax.set_title(subtitle, fontsize=10.5, fontweight="bold", pad=10, color=INK)
-        ax.set_xlabel(xlabel, fontsize=9.5, labelpad=8, color=INK)
-        ax.set_ylim(-1, 50)
-        ax.legend(loc="upper right", frameon=True, facecolor=SURFACE, edgecolor=AXIS, fontsize=8.5)
+        ax.set_title(subtitle, fontsize=8.5, pad=4, color=INK, loc="left")
+        ax.set_xlabel(xlabel, fontsize=8, color=INK)
+        ax.set_ylim(0, 50)
 
-    axes[0].set_ylabel("Required BKZ Block Size beta", fontsize=10, labelpad=8, color=INK)
-    plt.suptitle("Replication of Dachman-Soled et al. (CRYPTO 2020) Figure 5: Security Decay Under Hints\n(Instance: n = m = 70, q = 3301, sigma^2 = 20, Kannan dim = 141, baseline beta = 46)",
-                 fontsize=11.5, fontweight="bold", y=1.03, color=INK)
+    axes[0].set_ylabel(r"Required block size $\beta$", fontsize=8, color=INK)
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="upper center", ncol=2, frameon=False, fontsize=8, bbox_to_anchor=(0.5, 1.06))
 
     plt.tight_layout()
     plt.savefig(out_pdf, bbox_inches="tight")
@@ -97,34 +101,32 @@ def plot_e2e_bkz_recovery(e2e_csv, out_pdf, out_png):
             tours.append(float(row["mean_tours"]))
             succ_rates.append(float(row["success_rate"]))
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.4))
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.0, 2.7))
 
     # Panel 1: Wall-Clock Runtime
-    ax1.grid(True, linestyle="--", alpha=0.7)
-    ax1.plot(hints, times_ms, marker="o", color="#2a78d6", linewidth=2.0, markersize=6, label="Mean BKZ-4 Wall Time")
+    # Panel 1: wall-clock time (log scale). Direct labels on the two end points only, placed beside the marker.
+    ax1.grid(True, linestyle="-", alpha=0.7)
+    ax1.plot(hints, times_ms, marker="o", color="#2a78d6", linewidth=1.5, markersize=3.5)
     ax1.set_yscale("log")
-    ax1.set_xlabel("Number of Perfect Coordinate Hints (k)", fontsize=10, labelpad=8, color=INK)
-    ax1.set_ylabel("Wall-Clock Execution Time (ms) [Log Scale]", fontsize=10, labelpad=8, color=INK)
-    ax1.set_title("Reduction Wall-Clock Runtime Speedup\n(Kannan dim = 25 -> 13)", fontsize=11, fontweight="bold", pad=10, color=INK)
-
+    ax1.set_xlabel("Number of perfect coordinate hints $k$", fontsize=8, color=INK)
+    ax1.set_ylabel("Mean BKZ-4 time (ms, log scale)", fontsize=8, color=INK)
+    ax1.set_title("Reduction time (dimension 25 to 13)", fontsize=8.5, pad=4, color=INK, loc="left")
+    ax1.set_xticks(hints)
     if len(times_ms) > 0:
-        ax1.annotate(f"{times_ms[0]:.1f} ms\n(0 hints)", (hints[0], times_ms[0]),
-                     textcoords="offset points", xytext=(10, 5), fontsize=8.5, color="#2a78d6", fontweight="bold")
-        ax1.annotate(f"{times_ms[-1]:.1f} ms\n({times_ms[0]/times_ms[-1]:.0f}x faster)", (hints[-1], times_ms[-1]),
-                     textcoords="offset points", xytext=(-50, 10), fontsize=8.5, color="#2a78d6", fontweight="bold")
-    ax1.legend(loc="upper right", frameon=True, facecolor=SURFACE, edgecolor=AXIS, fontsize=9)
+        ax1.annotate(f"{times_ms[0]:.0f} ms", (hints[0], times_ms[0]), textcoords="offset points",
+                     xytext=(7, 3), fontsize=7.5, color=INK_SECONDARY, va="bottom")
+        ax1.annotate(f"{times_ms[-1]:.1f} ms", (hints[-1], times_ms[-1]), textcoords="offset points",
+                     xytext=(-6, 0), fontsize=7.5, color=INK_SECONDARY, ha="right", va="center")
+    ax1.set_ylim(times_ms[-1] / 2.0, times_ms[0] * 2.0)
 
-    # Panel 2: BKZ Tours
-    ax2.grid(True, linestyle="--", alpha=0.7)
-    ax2.plot(hints, tours, marker="s", color="#eb6834", linewidth=2.0, markersize=6, label="Mean Tours to Convergence")
-    ax2.set_xlabel("Number of Perfect Coordinate Hints (k)", fontsize=10, labelpad=8, color=INK)
-    ax2.set_ylabel("BKZ-4 Tours Completed", fontsize=10, labelpad=8, color=INK)
-    ax2.set_title("Lattice Reduction Convergence Tours\n(100% Secret Recovery across all trials)", fontsize=11, fontweight="bold", pad=10, color=INK)
+    # Panel 2: BKZ tours
+    ax2.grid(True, linestyle="-", alpha=0.7)
+    ax2.plot(hints, tours, marker="s", color="#eb6834", linewidth=1.5, markersize=3.5)
+    ax2.set_xlabel("Number of perfect coordinate hints $k$", fontsize=8, color=INK)
+    ax2.set_ylabel("Mean BKZ-4 tours", fontsize=8, color=INK)
+    ax2.set_title("Tours to convergence", fontsize=8.5, pad=4, color=INK, loc="left")
+    ax2.set_xticks(hints)
     ax2.set_ylim(0, 18)
-    ax2.legend(loc="upper right", frameon=True, facecolor=SURFACE, edgecolor=AXIS, fontsize=9)
-
-    plt.suptitle("End-to-End Secret Recovery under BKZ Reduction\n(Tractable Instance: n = m = 12, q = 257, CBD(3), 15 trials per point)",
-                 fontsize=11.5, fontweight="bold", y=1.03, color=INK)
 
     plt.tight_layout()
     plt.savefig(out_pdf, bbox_inches="tight")

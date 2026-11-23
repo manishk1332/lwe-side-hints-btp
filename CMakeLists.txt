@@ -115,6 +115,9 @@ option(BUILD_CLI "Build DBDD command-line interface" ON)
 if(BUILD_CLI)
     add_executable(dbdd_cli src/cli/main.cpp)
     target_link_libraries(dbdd_cli PRIVATE dbdd)
+
+    add_executable(dbdd_demo_runner src/cli/demo_runner.cpp)
+    target_link_libraries(dbdd_demo_runner PRIVATE dbdd)
 endif()
 
 # Examples (Phase 20)
@@ -131,6 +134,9 @@ if(BUILD_EXAMPLES)
 
     add_executable(example_06_budgeted_selection examples/06_budgeted_selection.cpp)
     target_link_libraries(example_06_budgeted_selection PRIVATE dbdd)
+
+    add_executable(example_07_attack_validation examples/07_attack_validation.cpp)
+    target_link_libraries(example_07_attack_validation PRIVATE dbdd)
 endif()
 
 # Benchmarks (Phase 20)
